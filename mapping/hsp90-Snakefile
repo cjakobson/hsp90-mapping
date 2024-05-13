@@ -1,0 +1,68 @@
+#sherlock commands
+#ml python/3.9.0
+#export PATH=~/.local/bin:$PATH
+#snakemake -np -s hsp90-Snakefile --cluster "sbatch --time=6:00:00 --mem=32G" -j 999
+#snakemake -p -s hsp90-Snakefile --cluster "sbatch --time=6:00:00 --mem=32G" -j 999
+
+BASE = '/scratch/users/cjakobso/'
+
+SAMPLES = range(1,145)
+
+rule all:
+	input:
+		BASE + "linear_hsp90_fdr_0.05.csv"
+
+rule linear_map:
+	input:
+		BASE + "radFilename.mat",
+		BASE + "radTrait.mat"
+	output:
+		BASE + "linear-hsp90/{sample}.mat"
+	params:
+		sample = "{sample}"
+	shell:
+		"""
+		ml matlab ; cd $SCRATCH ; matlab -nodesktop -nodisplay -nosplash -r "linear_mixed_model_rad('{params.sample}',1); exit"
+		"""
+
+rule linear_perm:
+	input:
+		BASE + "radFilename.mat",
+		BASE + "radTrait.mat"
+	output:
+		BASE + "linear-hsp90-perm/{sample}_perm.mat"
+	params:
+		sample = "{sample}"
+	shell:
+		"""
+		ml matlab ; cd $SCRATCH ; matlab -nodesktop -nodisplay -nosplash -r "linear_mixed_model_hsp90_perm('{params.sample}',100); exit"
+		"""
+
+rule calculate_fdr:
+	input:
+		expand(BASE + "linear-hsp90/{sample}.mat", sample=SAMPLES),
+		expand(BASE + "linear-hsp90-perm/{sample}_perm.mat", sample=SAMPLES)
+	output:
+		BASE + "pval_cutoffs_from_perm_fdr_0.05.mat"
+	shell:
+		"""
+		ml matlab ; cd $SCRATCH ; matlab -nodesktop -nodisplay -nosplash -r "estimate_qtl_fdr; exit"
+		"""
+
+rule scrape_mapping:
+	input:
+		BASE + "pval_cutoffs_from_perm_fdr_0.05.mat"
+	output:
+		BASE + "linear_hsp90_fdr_0.05.csv"
+	shell:
+		"""
+		ml matlab ; cd $SCRATCH ; matlab -nodesktop -nodisplay -nosplash -r "scrape_linear_hsp90; exit"
+		"""
+
+
+
+
+
+
+
+
