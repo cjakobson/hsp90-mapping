@@ -1,14 +1,7 @@
 %simulate phenotype then perform regression
 %do N replicates and output performance
 
-function [] = linear_mixed_model_rad(traitIdx,doHets,doFineMapping)
-
-
-if ischar(traitIdx)
-    traitIdx=str2num(traitIdx);
-end
-
-traitIdx
+function [] = linear_mixed_model_rad(trait_name,doHets,doFineMapping)
 
 
 mkdir('linear-hsp90');
@@ -20,6 +13,12 @@ clear phasedVLCgenotype
 
 load('radTrait.mat')
 load('radFilename.mat')
+
+
+traitIdx=find(ismember(filename,trait_name));
+
+filename{traitIdx}
+
 
 phenotypes=trait{traitIdx};
 phenotypes(isnan(phenotypes))=0;

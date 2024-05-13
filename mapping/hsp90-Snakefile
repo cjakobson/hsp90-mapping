@@ -1,12 +1,14 @@
 #sherlock commands
 #ml python/3.9.0
 #export PATH=~/.local/bin:$PATH
-#snakemake -np -s hsp90-Snakefile --cluster "sbatch --time=6:00:00 --mem=32G" -j 999
-#snakemake -p -s hsp90-Snakefile --cluster "sbatch --time=6:00:00 --mem=32G" -j 999
+#snakemake -np -s hsp90-Snakefile --cluster "sbatch --time=2:00:00 --mem=32G" -j 24
+#snakemake -p -s hsp90-Snakefile --cluster "sbatch --time=2:00:00 --mem=32G" -j 24
 
 BASE = '/scratch/users/cjakobso/'
-
-SAMPLES = range(1,145)
+#import sample names
+with open(BASE + 'sample_names.txt') as f:
+	SAMPLES = f.read().splitlines()
+print(SAMPLES)
 
 rule all:
 	input:
@@ -22,7 +24,7 @@ rule linear_map:
 		sample = "{sample}"
 	shell:
 		"""
-		ml matlab ; cd $SCRATCH ; matlab -nodesktop -nodisplay -nosplash -r "linear_mixed_model_rad('{params.sample}',1); exit"
+		ml matlab ; cd $SCRATCH ; matlab -nodesktop -nodisplay -nosplash -r "linear_mixed_model_rad('{params.sample}',1,1); exit"
 		"""
 
 rule linear_perm:
@@ -35,7 +37,7 @@ rule linear_perm:
 		sample = "{sample}"
 	shell:
 		"""
-		ml matlab ; cd $SCRATCH ; matlab -nodesktop -nodisplay -nosplash -r "linear_mixed_model_hsp90_perm('{params.sample}',100); exit"
+		ml matlab ; cd $SCRATCH ; matlab -nodesktop -nodisplay -nosplash -r "linear_mixed_model_rad_perm('{params.sample}',100); exit"
 		"""
 
 rule calculate_fdr:

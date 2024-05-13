@@ -1,4 +1,4 @@
-%produce various plots for Hsp90 manuscript
+%prepare input data for Hsp90 mapping
 
 clear
 
@@ -13,8 +13,10 @@ blue=[43 172 226]./256;
 orange=[248 149 33]./256;
 grey=[128 128 128]./256;
 
-%filebase='/Users/cjakobson/';
+
+
 filebase='/Users/christopherjakobson/';
+
 
 code_directory=[filebase 'Documents/GitHub/hsp90-mapping/'];
 dependency_directory=[filebase '/Dropbox/JaroszLab/hsp90mapping/hsp90-mapping-dependencies/'];
@@ -26,15 +28,15 @@ addpath([code_directory 'plotting/calculate'])
 addpath([code_directory 'plotting/plot'])
 addpath([code_directory 'data-prep'])
 
-%Figure 1
-figure('units','normalized','outerposition',[0 0 1 1])
 
-%A
-%n/a
 
-%B
-%rapamycin example segregant data
-%from 
+analyze_phenotyping(dependency_directory,output_directory)
+
+
+
+
+toc
+
 
 
 
