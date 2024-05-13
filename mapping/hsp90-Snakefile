@@ -12,7 +12,9 @@ print(SAMPLES)
 
 rule all:
 	input:
-		BASE + "linear_hsp90_fdr_0.05.csv"
+		BASE + "linear_hsp90_fdr_0.05.csv",
+		BASE + "linear_no_rad_fdr_0.05.csv",
+		BASE + "linear_rad_fdr_0.05.csv"
 
 rule linear_map:
 	input:
@@ -59,6 +61,26 @@ rule scrape_mapping:
 	shell:
 		"""
 		ml matlab ; cd $SCRATCH ; matlab -nodesktop -nodisplay -nosplash -r "scrape_linear_hsp90; exit"
+		"""
+
+rule scrape_no_rad:
+	input:
+		BASE + "pval_cutoffs_from_perm_fdr_0.05.mat"
+	output:
+		BASE + "linear_no_rad_fdr_0.05.csv"
+	shell:
+		"""
+		ml matlab ; cd $SCRATCH ; matlab -nodesktop -nodisplay -nosplash -r "scrape_no_rad_hsp90; exit"
+		"""
+
+rule scrape_rad:
+	input:
+		BASE + "pval_cutoffs_from_perm_fdr_0.05.mat"
+	output:
+		BASE + "linear_rad_fdr_0.05.csv"
+	shell:
+		"""
+		ml matlab ; cd $SCRATCH ; matlab -nodesktop -nodisplay -nosplash -r "scrape_rad_hsp90; exit"
 		"""
 
 
