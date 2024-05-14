@@ -463,6 +463,8 @@ end
 %remove SDS -- very little growth on SDS+rad
 toOutput2(ismember(toOutput2.condition,'SDS_0.0125%'),:)=[];
 
+%remove hets -- not commensurate in terms of effect size
+toOutput2=toOutput2(toOutput2.bPos<=(12054+41),:);
 
 %assume locus is QTN in all cases if ever called as QTN
 uniqueQtls=unique(toOutput2.index);

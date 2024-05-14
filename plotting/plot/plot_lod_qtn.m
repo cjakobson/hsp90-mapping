@@ -15,17 +15,9 @@ load([dependency_directory 'radFilename.mat'])
 load([dependency_directory 'radTrait.mat'])
 
 
-model_genotypes = parse_genotypes(dependency_directory,output_directory);
-    
-
 trait_to_use=trait{ismember(filename,[condition_to_plot '_delta'])};
 
-%coarse LOD scoring
-lod_1D=nan(1,length(model_genotypes(1,:)));
-for q = 1:length(model_genotypes(1,:))
-    r = corr(model_genotypes(:,q),trait_to_use,'rows','complete');
-    lod_1D(q) = -length(trait_to_use)*log(1-r^2)/(2*log(10));
-end
+[lod_1D,perm_thresh] = calculate_lod(trait_to_use,10,dependency_directory,output_directory);
 
 
 %also QTN score
@@ -43,14 +35,25 @@ if length(idx_to_use)>0
 
     v_to_plot(isnan(v_to_plot))=0;
 
-    yyaxis left
+    yyaxis right
     scatter(1:length(v_to_plot),v_to_plot,25,'k','filled')
-    plot(v_to_plot,'k','LineWidth',1)
+    plot(v_to_plot,'-k','LineWidth',1)
     title([condition_to_plot ' ' num2str(locus_to_plot)])
     xlim([0 21])
     plot([11 11],ylim,':r')
     axis square
     ylabel('QTN score')
+    
+    yyaxis left
+    left_lim=locus_to_plot-10;
+    right_lim=locus_to_plot+10;
+    
+    lod_to_plot=lod_1D(left_lim:right_lim);
+    
+    scatter(1:length(lod_to_plot),lod_to_plot,25,'b','filled')
+    plot(lod_to_plot,'--b','LineWidth',1)
+    
+    
 
 end
 
