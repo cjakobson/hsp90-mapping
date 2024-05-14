@@ -15,9 +15,9 @@ load([dependency_directory 'radTrait.mat'])
 
 
 %to annotate chrs on plots
-variantInfo=readtable([dependency_directory 'variantInfoStructure.csv']);
-vDiff=variantInfo.chr(2:end)~=variantInfo.chr(1:(end-1));
-breaks_to_plot=find(vDiff);
+variant_info=readtable([dependency_directory 'variantInfoStructure.csv']);
+v_diff=variant_info.chr(2:end)~=variant_info.chr(1:(end-1));
+breaks_to_plot=find(v_diff);
 
 
 

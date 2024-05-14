@@ -15,53 +15,30 @@ grey=[128 128 128]./256;
 
 
 
-expName={'20221030phenotyping','20221031phenotyping','20221101phenotyping','20221102phenotyping'};
-expTime={'24h','48h','72h','96h'};
+exp_name={'20221030phenotyping','20221031phenotyping','20221101phenotyping','20221102phenotyping'};
+exp_time={'24h','48h','72h','96h'};
 
-nImages=34;
-nPlates=102;
+n_plates=102;
 
-plateNames={'a','b','c'};
 
-inputData=[];
-for i=1:length(expName)
-    tempTable=readtable([dependency_directory expName{i} 'data.csv']);
-    inputData=[inputData table2array(tempTable)];
+input_data=[];
+for i=1:length(exp_name)
+    temp_table=readtable([dependency_directory exp_name{i} 'data.csv']);
+    input_data=[input_data table2array(temp_table)];
 end
 
 [num txt]=xlsread([dependency_directory '20211209 radicicol rescreen plate key_FINAL.xlsx']);
 
 
 
-tempConditions1=txt(2:13,2);
-tempConditions2=num(1:12,1);
-tempConditions3=txt(2:13,4);
-
-for i=1:length(tempConditions1)
-    tempConditions{i}=[tempConditions1{i} '_' num2str(tempConditions2(i))...
-        tempConditions3{i}];
-end
-
-m=1;
-for i=1:length(expTime)
-    for j=1:length(tempConditions)
-        radString={'-rad','+rad'};
-        for k=1:2
-            conditions{m}=[expTime{i} ' ' tempConditions{j} radString{k}];
-            m=m+1;
-        end
-    end
-end
-conditions=conditions';
+temp_conditions1=txt(2:13,2);
 
 
-nSpots=1536;
-
-fullMat=[];
-for i=1:(nPlates*length(expTime))
+full_mat=[];
+for i=1:(n_plates*length(exp_time))
         
     
-    tempMat{i}=inputData(:,i);
+    temp_mat{i}=input_data(:,i);
     
     %rearrange
     %reorganize to 384
@@ -84,68 +61,55 @@ for i=1:(nPlates*length(expTime))
 
     end
 
-    reorderMat{i}=nan(size(tempMat{i}));
+    reorder_mat{i}=nan(size(temp_mat{i}));
 
-    reorderMat{i}((1:384))=tempMat{i}(a1idx);
-    reorderMat{i}(((384+1):(2*384)))=tempMat{i}(a2idx);
-    reorderMat{i}(((2*384+1):(3*384)))=tempMat{i}(b1idx);
-    reorderMat{i}(((3*384+1):(4*384)))=tempMat{i}(b2idx);
+    reorder_mat{i}((1:384))=temp_mat{i}(a1idx);
+    reorder_mat{i}(((384+1):(2*384)))=temp_mat{i}(a2idx);
+    reorder_mat{i}(((2*384+1):(3*384)))=temp_mat{i}(b1idx);
+    reorder_mat{i}(((3*384+1):(4*384)))=temp_mat{i}(b2idx);
 
-    fullMat=[fullMat reorderMat{i}];
+    full_mat=[full_mat reorder_mat{i}];
     
 end
 
-fullMat(fullMat<25)=nan;
-fullMat(fullMat>2000)=nan;
+full_mat(full_mat<25)=nan;
+full_mat(full_mat>2000)=nan;
 
 
 %trim to just 1K
-plateOffset=102;
-plateRange=1:48;
+plate_offset=102;
+plate_range=1:48;
 
-toKeep=[];
-for i=1:length(expTime)
-    toKeep=[toKeep (i-1)*plateOffset+plateRange];
+to_keep=[];
+for i=1:length(exp_time)
+    to_keep=[to_keep (i-1)*plate_offset+plate_range];
 end
 
-fullMat=fullMat(:,toKeep);
+full_mat=full_mat(:,to_keep);
 
-nPlates=48;
-
-%calculate change in growth for each replicate
-for i=2:2:(nPlates*length(expTime))
-    
-    deltaMat(:,i/2)=(fullMat(:,i)-fullMat(:,i-1))./fullMat(:,i-1);
-    
-end
-
-for i=2:2:nPlates*length(expTime)/2
-    
-    meanMat(:,i/2)=mean(deltaMat(:,[i-1 i]),2,'omitnan');
-    
-end
+n_plates=48;
 
 %get strain info
-strainInfo=readtable([dependency_directory '1011 Genomes_Sace_strains_matrix_positions_384.xlsx']);
+strain_info=readtable([dependency_directory '1011 Genomes_Sace_strains_matrix_positions_384.xlsx']);
 m=1;
 for i=1:3   %plates
     
-    tempIdx1=ismember(strainInfo.Matrix_384,['M' num2str(i)]);
+    temp_idx1=ismember(strain_info.Matrix_384,['M' num2str(i)]);
     
     for j=1:16  %rows
         
-        tempIdx2=ismember(strainInfo.row_384,j);
+        temp_idx2=ismember(strain_info.row_384,j);
         
         for k=1:24  %columns
             
-            tempIdx3=ismember(strainInfo.col_384,k);
+            temp_idx3=ismember(strain_info.col_384,k);
             
-            tempIdx=find(tempIdx1.*tempIdx2.*tempIdx3);
+            temp_idx=find(temp_idx1.*temp_idx2.*temp_idx3);
             
-            if length(tempIdx)>0
+            if length(temp_idx)>0
                 
-                name1{m}=strainInfo.Strain_Name_4SRA{tempIdx};
-                name2{m}=strainInfo.Standardized_name{tempIdx};
+                name1{m}=strain_info.Strain_Name_4SRA{temp_idx};
+                name2{m}=strain_info.Standardized_name{temp_idx};
                 
             else
                 
@@ -165,88 +129,86 @@ end
 
 %should recast this to be deltaGrowth -/+ rad
 %calculate change in growth for each replicate
-for i=1:(nPlates*length(expTime)/4)
+for i=1:(n_plates*length(exp_time)/4)
     
     idx1=(i-1)*4+1;
     idx2=(i-1)*4+3;
     
-    noRadMeanMat(:,i)=mean([fullMat(:,idx1) fullMat(:,idx2)],2);
+    no_rad_mean_mat(:,i)=mean([full_mat(:,idx1) full_mat(:,idx2)],2);
     
     idx1=(i-1)*4+2;
     idx2=(i-1)*4+4;
     
-    radMeanMat(:,i)=mean([fullMat(:,idx1) fullMat(:,idx2)],2);
+    rad_mean_mat(:,i)=mean([full_mat(:,idx1) full_mat(:,idx2)],2);
     
 end
 
 
    
 
-condition_to_use=find(ismember(tempConditions1,condition_to_plot));
-time_to_use=find(ismember(expTime,time_to_plot));
+condition_to_use=find(ismember(temp_conditions1,condition_to_plot));
+time_to_use=find(ismember(exp_time,time_to_plot));
 
 %minor allele frequency from 1k genomes
 load([dependency_directory '1002data.mat'])
 
-tempHetMat=minGenotype~=minGenotype2;
+temp_het_mat=minGenotype~=minGenotype2;
 
-minGenotype(tempHetMat)=-1;
+minGenotype(temp_het_mat)=-1;
 
 for i=1:length(locus_to_plot)
 
     altIdx=logical((minGenotype(locus_to_plot(i),:)==1)+(minGenotype(locus_to_plot(i),:)==-1));
-    refIdx=logical((minGenotype(locus_to_plot(i),:)==0));
     
     altStrains{i}=strainString(altIdx);
-    refStrains{i}=strainString(refIdx);
 
 end
 
 
-%normalize to plot for manuscript
-for j=time_to_use%1:length(expTime)
+%normalize to plot
+for j=time_to_use
     
-    columnOffset=nPlates/4*(j-1);
+    column_offset=n_plates/4*(j-1);
     
-    for i=condition_to_use%1:length(tempConditions1)
+    for i=condition_to_use
 
-        conditionIdx=i;%conditionToUse(i);
+        condition_idx=i;
         hold on
-        toPlot{2}=noRadMeanMat(1:1152,conditionIdx+columnOffset);
+        to_plot{2}=no_rad_mean_mat(1:1152,condition_idx+column_offset);
 
         altIdx=find(ismember(name2,altStrains{1}));
 
-        toPlot{1}=toPlot{2}(altIdx);
-        toPlot{2}(altIdx)=[];
+        to_plot{1}=to_plot{2}(altIdx);
+        to_plot{2}(altIdx)=[];
         
-        toPlot{4}=radMeanMat(1:1152,conditionIdx+columnOffset);
+        to_plot{4}=rad_mean_mat(1:1152,condition_idx+column_offset);
         
-        toPlot{3}=toPlot{4}(altIdx);
-        toPlot{4}(altIdx)=[];
+        to_plot{3}=to_plot{4}(altIdx);
+        to_plot{4}(altIdx)=[];
         
-        clear vMean vSem
-        for k=1:length(toPlot)
-            vMean(k)=median(toPlot{k},'omitnan');
-            vSem(k)=std(toPlot{k},[],'omitnan')./sqrt(length(toPlot{k}));
+        clear v_mean v_sem
+        for k=1:length(to_plot)
+            v_mean(k)=median(to_plot{k},'omitnan');
+            v_sem(k)=std(to_plot{k},[],'omitnan')./sqrt(length(to_plot{k}));
         end
         
-        vSem(1:2)=vSem(1:2)./vMean(1);
-        vMean(1:2)=vMean(1:2)./vMean(1);
+        v_sem(1:2)=v_sem(1:2)./v_mean(1);
+        v_mean(1:2)=v_mean(1:2)./v_mean(1);
         
-        vSem(3:4)=vSem(3:4)./vMean(3);
-        vMean(3:4)=vMean(3:4)./vMean(3);
+        v_sem(3:4)=v_sem(3:4)./v_mean(3);
+        v_mean(3:4)=v_mean(3:4)./v_mean(3);
             
         
-        bar(vMean)
-        errorbar(1:length(vMean),vMean,vSem,'k.')
+        bar(v_mean)
+        errorbar(1:length(v_mean),v_mean,v_sem,'k.')
 
         ylabel('relative growth')
         title([condition_to_plot ' ' time_to_plot])
-        tempLabels={'ref-rad','alt-rad','ref+rad','alt+rad'};
-        xticks(1:length(tempLabels))
-        xticklabels(tempLabels)
+        temp_labels={'ref-rad','alt-rad','ref+rad','alt+rad'};
+        xticks(1:length(temp_labels))
+        xticklabels(temp_labels)
         xtickangle(45)
-        [h p]=ttest2(toPlot{2},toPlot{4});
+        [h p]=ttest2(to_plot{2},to_plot{4});
         text(3,1.7,num2str(p))
         xlim([0 5])
 

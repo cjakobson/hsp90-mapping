@@ -101,8 +101,6 @@ idx_to_use{3}=[9 10 13 14 21 22];
 %rad/RM
 idx_to_use{4}=[11 12 15 16 23 24];
 
-tempNames={'glc YJM ','glc RM ','rad YJM ','rad RM '};
-
 for k=[3 4]%1:length(idx_to_use)
     clear v_to_plot v_mean v_sem
     for l=1:length(idx_to_use{k})
