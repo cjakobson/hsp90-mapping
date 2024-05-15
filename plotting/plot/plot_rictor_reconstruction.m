@@ -1,4 +1,4 @@
-function [] = plot_rictor_reconstruction(dependency_directory,output_directory)
+function [] = plot_rictor_reconstruction(condition_to_plot,dependency_directory,output_directory)
 
 
 set(0,'DefaultLineLineWidth',1)
@@ -101,7 +101,7 @@ idx_to_use{3}=[9 10 13 14 21 22];
 %rad/RM
 idx_to_use{4}=[11 12 15 16 23 24];
 
-for k=[3 4]%1:length(idx_to_use)
+for k=condition_to_plot%1:length(idx_to_use)
     clear v_to_plot v_mean v_sem
     for l=1:length(idx_to_use{k})
 

@@ -13,8 +13,8 @@ blue=[43 172 226]./256;
 orange=[248 149 33]./256;
 grey=[128 128 128]./256;
 
-filebase='/Users/cjakobson/';
-%filebase='/Users/christopherjakobson/';
+%filebase='/Users/cjakobson/';
+filebase='/Users/christopherjakobson/';
 
 code_directory=[filebase 'Documents/GitHub/hsp90-mapping/'];
 dependency_directory=[filebase '/Dropbox/JaroszLab/hsp90mapping/hsp90-mapping-dependencies/'];
@@ -77,7 +77,7 @@ figure('units','normalized','outerposition',[0 0 1 1])
 %CRISPR reconstruction of RICTOR
 %from plotRadPhenotpying5b.m
 %subplot(2,4,1)
-plot_rictor_reconstruction(dependency_directory,output_directory)
+plot_rictor_reconstruction([3 4],dependency_directory,output_directory)
 
 
 %H
@@ -138,70 +138,62 @@ plot_trait_scatter('72h fluconazole_100uM_delta','72h rapamycin_5uM_delta',depen
 
 %G
 %effect size -- buffered vs potentiated
+subplot(2,8,11)
+plot_effect_size_interaction(dependency_directory,output_directory)
+
+
+%H
+%effect size -- buffered vs potentiated split by inverted/not
+subplot(2,8,12)
+plot_effect_size_line_crossing(dependency_directory,output_directory)
+
+
+
+%I
+%effect size histogam -- no rad vs Hsp90-dependent
+subplot(2,4,7)
+plot_effect_size_histogram(dependency_directory,output_directory)
 
 
 
 
+%J
+%Hsp90 vs linear effect size in no rad and rad
+plot_effect_size_across_mapping(dependency_directory,output_directory)
 
-%couple of exploratory plots for DFJ
+
+
+
+set(gcf,'PaperPositionMode','auto')
+print([output_directory 'figure_S1_1'],'-dsvg','-r0')
+print([output_directory 'figure_S1_1'],'-djpeg','-r300')
+
+
+
 figure('units','normalized','outerposition',[0 0 1 1])
 
-hsp90_input=readtable([dependency_directory 'linear_hsp90_fdr_0.05.csv']);
-no_rad_input=readtable([dependency_directory 'linear_no_rad_fdr_0.05.csv']);
-rad_input=readtable([dependency_directory 'linear_rad_fdr_0.05.csv']);
-
-hsp90_qtn_idx=hsp90_input.isQtn==1;
-v_buffer=abs(hsp90_input.deltaZbuffer)>=abs(hsp90_input.deltaZbaseline);
-v_potentiate=abs(hsp90_input.deltaZbuffer)<abs(hsp90_input.deltaZbaseline);
-
-clear to_plot
-to_plot{1}=abs(hsp90_input.deltaZbaseline(logical(hsp90_qtn_idx.*v_buffer)));
-to_plot{2}=abs(hsp90_input.deltaZbaseline(logical(hsp90_qtn_idx.*v_potentiate)));
-
-to_plot{3}=abs(no_rad_input.deltaZbaseline(no_rad_input.isQtn==1));
-
-to_plot{4}=abs(rad_input.deltaZbaseline(rad_input.isQtn==1));
-
-subplot(2,8,1)
-easy_box(to_plot)
-ylim([-0.1 1])
-temp_labels={'buffered','potentiated','found in no rad','found in rad'};
-xticks(1:length(temp_labels))
-xticklabels(temp_labels)
-xtickangle(45)
-title('effect size in no rad')
-ylabel('\DeltaZ')
+%K
+%RICTOR reconstruction in glucose
+plot_rictor_reconstruction([1 2],dependency_directory,output_directory)
 
 
-
-clear to_plot
-to_plot{1}=abs(hsp90_input.deltaZbuffer(logical(hsp90_qtn_idx.*v_buffer)));
-to_plot{2}=abs(hsp90_input.deltaZbuffer(logical(hsp90_qtn_idx.*v_potentiate)));
-
-to_plot{3}=abs(no_rad_input.deltaZbuffer(no_rad_input.isQtn==1));
-
-to_plot{4}=abs(rad_input.deltaZbuffer(rad_input.isQtn==1));
-
-subplot(2,8,2)
-easy_box(to_plot)
-ylim([-0.1 1])
-temp_labels={'buffered','potentiated','found in no rad','found in rad'};
-xticks(1:length(temp_labels))
-xticklabels(temp_labels)
-xtickangle(45)
-title('effect size in rad')
-ylabel('\DeltaZ')
-
-
+%L
 %cumulative plot for effect size
 subplot(2,4,2)
 plot_cumulative_effect_size(dependency_directory,output_directory)
 
 
+%M
+%effect size by variant type
+subplot(2,4,3)
+plot_effect_size_type(dependency_directory,output_directory)
+
+
 
 set(gcf,'PaperPositionMode','auto')
-print([output_directory 'figure_1_exploratory'],'-dsvg','-r0')
-print([output_directory 'figure_1_exploratory'],'-djpeg','-r300')
+print([output_directory 'figure_S1_2'],'-dsvg','-r0')
+print([output_directory 'figure_S1_2'],'-djpeg','-r300')
+
 
 
 
