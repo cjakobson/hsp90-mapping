@@ -100,6 +100,46 @@ print([output_directory 'figure_1_2'],'-djpeg','-r300')
 
 
 
+%Figure S1
+figure('units','normalized','outerposition',[0 0 1 1])
+
+%A
+%v-Src assay
+%from plotVsrc.m
+subplot(2,8,1)
+plot_vsrc(dependency_directory,output_directory)
+
+
+%B
+%scatter min glc -/+rad
+subplot(2,4,2)
+plot_trait_scatter('72h min glc_2%-rad','72h min glc_2%-rad',dependency_directory,output_directory)
+
+
+%C
+%n/a
+
+
+%D
+%heat shock mRNAs
+%from analyzeRnaSeq.m
+plot_heat_shock_rnas(dependency_directory,output_directory)
+
+
+%E
+%cross plot traits
+subplot(2,4,5)
+plot_trait_scatter('72h fluconazole_100uM_delta','72h rapamycin_5uM_delta',dependency_directory,output_directory)
+
+
+%F
+%n/a
+
+
+%G
+%effect size -- buffered vs potentiated
+
+
 
 
 
