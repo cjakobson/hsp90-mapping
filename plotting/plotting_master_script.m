@@ -13,8 +13,8 @@ blue=[43 172 226]./256;
 orange=[248 149 33]./256;
 grey=[128 128 128]./256;
 
-%filebase='/Users/cjakobson/';
-filebase='/Users/christopherjakobson/';
+filebase='/Users/cjakobson/';
+%filebase='/Users/christopherjakobson/';
 
 code_directory=[filebase 'Documents/GitHub/hsp90-mapping/'];
 dependency_directory=[filebase '/Dropbox/JaroszLab/hsp90mapping/hsp90-mapping-dependencies/'];
@@ -113,7 +113,7 @@ plot_vsrc(dependency_directory,output_directory)
 %B
 %scatter min glc -/+rad
 subplot(2,4,2)
-plot_trait_scatter('72h min glc_2%-rad','72h min glc_2%-rad',dependency_directory,output_directory)
+plot_trait_scatter('72h min glc_2%-rad','72h min glc_2%+rad',dependency_directory,output_directory)
 
 
 %C
@@ -194,6 +194,134 @@ set(gcf,'PaperPositionMode','auto')
 print([output_directory 'figure_S1_2'],'-dsvg','-r0')
 print([output_directory 'figure_S1_2'],'-djpeg','-r300')
 
+
+close all
+
+
+%Figure 2
+figure('units','normalized','outerposition',[0 0 1 1])
+
+
+%A
+%ERG11 QTN vs LOD
+subplot(2,4,1)
+plot_lod_qtn(4975,'72h fluconazole_100uM',dependency_directory,output_directory)
+
+
+%B
+%ERG11 reconstruction in flc
+%from readSgaDataErg11rad.m
+plot_erg11_reconstruction(1,[1 2],2,dependency_directory,output_directory)
+
+
+%C
+%ASE -/+rad
+subplot(2,4,3)
+plot_ase(dependency_directory,output_directory)
+
+
+%D
+%effect size as function of distance from TSS
+%from hsp90regulatoryPlots.m
+subplot(2,4,4)
+plot_tss_effect_size(dependency_directory,output_directory)
+
+
+
+%E
+%ERG11 ASE
+subplot(2,8,9)
+plot_tag_counts(4972,dependency_directory,output_directory)
+
+
+subplot(2,8,10)
+plot_allele_ratio(4972,dependency_directory,output_directory)
+
+
+
+%F
+%as D but for TES
+subplot(2,4,6)
+plot_tes_effect_size(dependency_directory,output_directory)
+
+
+
+%G
+%NFS1 reconstruction
+%from readSgaDataNfs1rad.m
+plot_nfs1_reconstruction([3 8],24,dependency_directory,output_directory)
+
+plot_nfs1_reconstruction([2 7],26,dependency_directory,output_directory)
+
+
+%H
+%effect size of reg variants by interaction type and -/+ASE
+subplot(2,4,8)
+plot_reg_effect_size_ase(dependency_directory,output_directory)
+
+
+
+set(gcf,'PaperPositionMode','auto')
+print([output_directory 'figure_2'],'-dsvg','-r0')
+print([output_directory 'figure_2'],'-djpeg','-r300')
+
+
+
+%Figure S2
+figure('units','normalized','outerposition',[0 0 1 1])
+
+
+%A
+%ERG11 reconstruction in teb
+%from readSgaDataErg11rad.m
+plot_erg11_reconstruction(1,[3 4],0,dependency_directory,output_directory)
+
+
+%B
+%ERG11 reconstruction in glc
+%from plotRadPhenotyping2.m
+plot_erg11_reconstruction_glucose(1,2,dependency_directory,output_directory)
+
+
+%C
+%n/a
+
+
+%D
+%ASE power calculation
+%from calculateASE.m
+subplot(2,4,3)
+plot_ase_power(dependency_directory,output_directory)
+
+
+
+%E
+%ASE -/+rad for all sites
+subplot(2,4,4)
+plot_ase_all(dependency_directory,output_directory)
+
+
+
+%F
+%effect size for has ASE/not for all SNPs
+subplot(2,8,9)
+plot_effect_size_ase(dependency_directory,output_directory)
+
+
+
+%G
+%effect size of protein-coding variants by interaction type and -/+ASE
+subplot(2,4,6)
+plot_coding_effect_size_ase(dependency_directory,output_directory)
+
+
+set(gcf,'PaperPositionMode','auto')
+print([output_directory 'figure_S2'],'-dsvg','-r0')
+print([output_directory 'figure_S2'],'-djpeg','-r300')
+
+
+
+close all
 
 
 
