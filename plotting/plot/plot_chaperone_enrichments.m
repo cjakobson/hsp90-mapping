@@ -29,7 +29,7 @@ input_genes{3}=[variant_info.gene1;variant_info.gene2];
 input_genes{3}(cellfun(@isempty,input_genes{3}))=[];
 
 [overlap_mat,interactor_pval,relative_mat] = ...
-    calculate_fraction_interactors(dependency_directory,output_directory);
+    calculate_fraction_interactors(input_genes,dependency_directory,output_directory);
 
 %Hsp90/70 machinery
 %see https://journals.asm.org/doi/10.1128/mmbr.05018-11
