@@ -325,5 +325,45 @@ close all
 
 
 
+%Figure 3
+figure('units','normalized','outerposition',[0 0 1 1])
+%A
+%n/a
+
+
+%B
+%chaperone and cochaperone enrichments
+subplot(2,4,1)
+plot_chaperone_enrichments(dependency_directory,output_directory)
+
+
+%C and C inset -- zoom in
+%fraction of modified loci interacting
+plot_fraction_interactors(1,dependency_directory,output_directory)
+
+
+
+%D
+%scatter plot fraction enriched/enrichment pVal
+subplot(2,4,4)
+plot_enrichment_scatter(dependency_directory,output_directory)
+
+
+
+%E
+%kinase and TF enrichments
+%from kinomeAnalysis.m
+subplot(2,2,3)
+plot_kinase_tf_enrichments(dependency_directory,output_directory)
+
+
+
+set(gcf,'PaperPositionMode','auto')
+print([output_directory 'figure_3'],'-dsvg','-r0')
+print([output_directory 'figure_3'],'-djpeg','-r300')
+
+
+%Figure S3
+
 toc
 
