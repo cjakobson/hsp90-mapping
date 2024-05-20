@@ -81,14 +81,6 @@ v_fit=v_fit+1.5;
   
 
 
-
-% hold on
-% easyBox(to_plot)
-% ylim([-2 2])
-% title(condition_to_plot)
-
-
-
 %make mutational step plots
 for i=1:length(to_plot)
     v_mean(i)=mean(to_plot{i},'omitnan');
@@ -150,7 +142,7 @@ end
 
 
 hold on
-easyBoxWithDots(v_delta)
+easy_box_with_dots(v_delta)
 ylim([-2 1])
 title(condition_to_plot)
 [h p]=ttest2(to_plot{1},to_plot{1});

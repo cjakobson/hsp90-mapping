@@ -182,12 +182,10 @@ for j=conditions_to_plot
     hold on
     bar(v_mean(strain_to_use))
     errorbar(v_mean(strain_to_use),v_sem(strain_to_use),'.k')
-    %easyBox(toPlot)
     title(condition_names{j})
     xticks(1:length(strain_names(strain_to_use)))
     xtickangle(45)
     xticklabels(strain_names(strain_to_use))
-    %ylim([0 Inf])
     ylim([0.6 1.4])
     plot(xlim,[1 1],':k')
 

@@ -548,7 +548,93 @@ print([output_directory 'figure_S4_2'],'-djpeg','-r300')
 close all
 
 
+%Figure 5
+figure('units','normalized','outerposition',[0 0 1 1])
 
+%A
+%n/a
+
+
+%B
+%n/a
+
+
+%C
+%ERG11 CRISPRi experiment
+%raw data for YJM975 flc and flc+rad
+plot_erg11_crispri(0,dependency_directory,output_directory)
+
+
+%D
+%normalized YJM975 data in flc
+subplot(2,4,3)
+plot_erg11_crispri_norm(1,1,dependency_directory,output_directory)
+
+
+%E
+%effect size by haploinsuff, ess, etc
+subplot(2,8,7)
+plot_haplo_interaction(1,dependency_directory,output_directory)
+
+subplot(2,8,8)
+plot_haplo_interaction(2,dependency_directory,output_directory)
+
+
+%F
+%essential and haploinsufficient analyses for human
+subplot(2,8,9)
+plot_haplo_human(dependency_directory,output_directory)
+
+
+
+set(gcf,'PaperPositionMode','auto')
+print([output_directory 'figure_5'],'-dsvg','-r0')
+print([output_directory 'figure_5'],'-djpeg','-r300')
+
+
+
+%Figure S5
+figure('units','normalized','outerposition',[0 0 1 1])
+
+%A
+%n/a
+
+
+%B
+%Erg11 variants in flc/rad
+subplot(2,4,1)
+plot_erg11_mutants(1,dependency_directory,output_directory)
+
+%C
+%same in teb
+subplot(2,4,2)
+plot_erg11_mutants(2,dependency_directory,output_directory)
+
+
+%D
+%YJM975 crispri in glucose (no drug)
+subplot(2,4,3)
+plot_erg11_crispri_norm_glc(1,1,dependency_directory,output_directory)
+
+
+%E
+%norm RM11 in flc
+subplot(2,4,4)
+plot_erg11_crispri_norm(2,1,dependency_directory,output_directory)
+
+
+%F
+%n/a
+
+
+%G
+subplot(2,8,9)
+plot_haplo_all(dependency_directory,output_directory)
+
+
+set(gcf,'PaperPositionMode','auto')
+print([output_directory 'figure_S5'],'-dsvg','-r0')
+print([output_directory 'figure_S5'],'-djpeg','-r300')
 
 
 toc
