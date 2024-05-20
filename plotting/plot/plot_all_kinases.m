@@ -92,7 +92,8 @@ end
 
 qtnOddsRatio=fMat(:,1)./fMat(:,3);
 
-qThresh=0.05;
+%qThresh=0.05;
+qThresh=Inf;
 
 
 toUse=qtnPval<qThresh;
@@ -110,91 +111,6 @@ oddsForMerge=[];
 pForMerge=[];
 labelsForMerge=[];
 
-
-oddsForMerge=[oddsForMerge; v1(sortIdx)];
-pForMerge=[pForMerge v2(sortIdx)];
-labelsForMerge=[labelsForMerge; v3(sortIdx)];
-
-
-
-
-%TF targets from huge ChIPseq experiment
-%https://www.nature.com/articles/s41586-021-03314-8#MOESM4
-
-[num,txt]=xlsread([dependency_directory '41586_2021_3314_MOESM4_ESM.xlsx'],6);
-
-vTF=txt(2,4:374);
-
-vTFgenes=txt(9:5872,2);
-
-vTFtype=txt(6,4:374);
-
-clear txt
-
-tfMat=num(9:5872,4:374);
-
-clear num
-
-toUse=ismember(vTFtype,'TF');
-
-vTF=vTF(toUse);
-tfMat=tfMat(:,toUse);
-
-
-for i=1:length(vTF)
-    
-    tfTargets{i}=vTFgenes(logical(tfMat(:,i)));
-    
-end
-
-for i=1:length(vTF)
-    
-    tfTargetOverlap{i,1}=intersect(tfTargets{i},qtn_genes);
-    tfTargetOverlap{i,2}=intersect(tfTargets{i},qtl_genes);
-    tfTargetOverlap{i,3}=intersect(tfTargets{i},all_segregating_genes);
-    
-    tempTable=table([length(tfTargetOverlap{i,1});length(qtn_genes)-length(tfTargetOverlap{i,1})],...
-        [length(tfTargetOverlap{i,3});length(all_segregating_genes)-length(tfTargetOverlap{i,3})],...
-        'VariableNames',{'interacting','all other'},'RowNames',{'client','not client'});
-    [h,p,stats]=fishertest(tempTable);
-    
-    tfQtnPval(i)=p*length(vTF);
-    
-    if tfQtnPval(i)<0.05
-        toOutput=table(tfTargetOverlap{i,1},'VariableNames',{'ORF'});
-        writetable(toOutput,[vTF{i} '_qtnTargets.txt'])
-    end
-    
-    
-end
-
-
-nMatTf=cellfun(@length,tfTargetOverlap);
-
-for i=1:length(vTF)
-        
-    fMatTf(i,1)=nMatTf(i,1)/length(qtn_genes);
-    fMatTf(i,2)=nMatTf(i,2)/length(qtl_genes);
-    fMatTf(i,3)=nMatTf(i,3)/length(all_segregating_genes);  
-     
-end
-
-tfQtnOddsRatio=fMatTf(:,1)./fMatTf(:,3);
-
-
-qThresh=0.05;
-toUse=tfQtnPval<qThresh;
-qToUse=tfQtnPval(toUse);
-tfToUse=vTF(toUse);
-
-
-
-%sort by descending OR for merged fig
-v1=tfQtnOddsRatio(toUse);
-v2=qToUse;
-v3=tfToUse';
-
-[~,sortIdx]=sort(v1,'descend');
 
 oddsForMerge=[oddsForMerge; v1(sortIdx)];
 pForMerge=[pForMerge v2(sortIdx)];

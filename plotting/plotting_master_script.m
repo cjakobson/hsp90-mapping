@@ -363,7 +363,196 @@ print([output_directory 'figure_3'],'-dsvg','-r0')
 print([output_directory 'figure_3'],'-djpeg','-r300')
 
 
+
 %Figure S3
+figure('units','normalized','outerposition',[0 0 1 1])
+
+%A
+%enrichment for all kinases
+subplot(2,2,1)
+plot_all_kinases(dependency_directory,output_directory)
+
+%B
+%also for all other TFs?
+subplot(2,2,2)
+plot_all_tfs(dependency_directory,output_directory)
+
+
+
+
+set(gcf,'PaperPositionMode','auto')
+print([output_directory 'figure_S3'],'-dsvg','-r0')
+print([output_directory 'figure_S3'],'-djpeg','-r300')
+
+
+
+
+%Figure 4
+figure('units','normalized','outerposition',[0 0 1 1])
+
+%A
+%n/a
+
+%B
+%n/a
+
+
+%C 
+%mutational step effect sizes
+loci_to_plot(1)=4835;    %IMA1/MAL1
+loci_to_plot(2)=886;     %MAL3
+loci_to_plot(3)=426;     %GAL10
+
+ref_allele=[1 1 -1];
+
+subplot(2,8,1)
+plot_mutational_steps(loci_to_plot,ref_allele,'72h min mal_2%',...
+    dependency_directory,output_directory)
+
+
+subplot(2,8,2)
+plot_mutational_steps(loci_to_plot,ref_allele,'72h min raf_2%',...
+    dependency_directory,output_directory)
+
+
+%D
+%same for flc/glc
+loci_to_plot(1)=4974;    %ERG11
+loci_to_plot(2)=4292;     %PDR1
+loci_to_plot(3)=10060;     %GRE2
+
+ref_allele=[1 -1 1];
+
+subplot(2,8,3)
+plot_mutational_steps(loci_to_plot,ref_allele,'72h fluconazole_100uM',...
+    dependency_directory,output_directory)
+
+
+subplot(2,8,4)
+plot_mutational_steps(loci_to_plot,ref_allele,'72h min glc_2%',...
+    dependency_directory,output_directory)
+
+
+%E
+%n/a
+
+
+%F
+%gene age for interacting variants
+subplot(2,4,3)
+plot_gene_age_all(dependency_directory,output_directory)
+
+%G
+%only regulatory
+subplot(2,4,4)
+plot_gene_age_type(3,dependency_directory,output_directory)
+
+
+
+
+set(gcf,'PaperPositionMode','auto')
+print([output_directory 'figure_4'],'-dsvg','-r0')
+print([output_directory 'figure_4'],'-djpeg','-r300')
+
+
+
+
+
+%Figure S4
+figure('units','normalized','outerposition',[0 0 1 1])
+
+%A
+%heritability explained
+subplot(2,4,1)
+plot_heritability_explained(dependency_directory,output_directory)
+
+
+%B
+%modified QTLs per trait
+subplot(2,4,2)
+plot_qtls_per_trait(dependency_directory,output_directory)
+
+
+%C
+%maltose allele effect
+subplot(2,4,3)
+plot_allele_effect(4835,'72h min mal_2%',dependency_directory,output_directory)
+
+
+
+
+%D
+loci_to_plot(1)=4835;    %IMA1/MAL1
+loci_to_plot(2)=886;     %MAL3
+loci_to_plot(3)=426;     %GAL10
+
+ref_allele=[1 1 -1];
+
+subplot(2,2,3)
+plot_allele_combintations(loci_to_plot,ref_allele,'72h min mal_2%',...
+    dependency_directory,output_directory)
+
+
+%E
+subplot(2,2,4)
+plot_allele_combintations(loci_to_plot,ref_allele,'72h min raf_2%',...
+    dependency_directory,output_directory)
+
+
+
+set(gcf,'PaperPositionMode','auto')
+print([output_directory 'figure_S4_1'],'-dsvg','-r0')
+print([output_directory 'figure_S4_1'],'-djpeg','-r300')
+
+
+
+
+figure('units','normalized','outerposition',[0 0 1 1])
+
+
+%F
+%modified QTN pleiotropy
+subplot(2,4,1)
+plot_allele_pleiotropy_scatter(dependency_directory,output_directory)
+
+
+
+
+%new supp panel -- missense gene age
+%G
+subplot(2,4,2)
+plot_gene_age_type(1,dependency_directory,output_directory)
+
+
+%H
+%gene age for buffered
+subplot(2,4,3)
+plot_gene_age_interaction(1,dependency_directory,output_directory)
+
+
+
+%new panel
+%also for potentiated
+%I
+subplot(2,4,4)
+plot_gene_age_interaction(2,dependency_directory,output_directory)
+
+
+
+
+set(gcf,'PaperPositionMode','auto')
+print([output_directory 'figure_S4_2'],'-dsvg','-r0')
+print([output_directory 'figure_S4_2'],'-djpeg','-r300')
+
+
+close all
+
+
+
+
 
 toc
+
+
+
 
