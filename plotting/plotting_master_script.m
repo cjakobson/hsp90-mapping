@@ -386,6 +386,9 @@ print([output_directory 'figure_S3'],'-djpeg','-r300')
 
 
 
+close all
+
+
 
 %Figure 4
 figure('units','normalized','outerposition',[0 0 1 1])
@@ -635,6 +638,14 @@ plot_haplo_all(dependency_directory,output_directory)
 set(gcf,'PaperPositionMode','auto')
 print([output_directory 'figure_S5'],'-dsvg','-r0')
 print([output_directory 'figure_S5'],'-djpeg','-r300')
+
+
+
+%Figure S6
+
+
+%Figure S7
+
 
 
 toc

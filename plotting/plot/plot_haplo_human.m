@@ -45,7 +45,7 @@ end
 
 
 
-client_table=readtable('picardHsp90Interactors.csv');
+client_table=readtable([dependency_directory 'picardHsp90Interactors.csv']);
 
 to_keep=logical(ismember(client_table.Interactor_A,{'HSP90AA1','HSP90BB1'})+...
     ismember(client_table.Interactor_B,{'HSP90AA1','HSP90BB1'}));
