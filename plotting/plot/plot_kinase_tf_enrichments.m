@@ -160,11 +160,6 @@ for i=1:length(vTF)
     
     tfQtnPval(i)=p*length(vTF);
     
-    if tfQtnPval(i)<0.05
-        toOutput=table(tfTargetOverlap{i,1},'VariableNames',{'ORF'});
-        writetable(toOutput,[vTF{i} '_qtnTargets.txt'])
-    end
-    
     
 end
 
