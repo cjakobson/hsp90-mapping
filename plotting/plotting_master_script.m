@@ -640,12 +640,35 @@ print([output_directory 'figure_S5'],'-dsvg','-r0')
 print([output_directory 'figure_S5'],'-djpeg','-r300')
 
 
+close all
+
 
 %Figure S6
+figure('units','normalized','outerposition',[0 0 1 1])
+
+plot_ase_reproducibility(dependency_directory,output_directory)
+
+set(gcf,'PaperPositionMode','auto')
+print([output_directory 'figure_S6'],'-dsvg','-r0')
+print([output_directory 'figure_S6'],'-djpeg','-r300')
+
+
 
 
 %Figure S7
+figure('units','normalized','outerposition',[0 0 1 1])
 
+plot_tpm_reproducibility(dependency_directory,output_directory)
+
+
+
+set(gcf,'PaperPositionMode','auto')
+print([output_directory 'figure_S7'],'-dsvg','-r0')
+print([output_directory 'figure_S7'],'-djpeg','-r300')
+
+
+
+close all
 
 
 toc

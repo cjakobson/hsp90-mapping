@@ -1,4 +1,4 @@
-function []= plot_tag_counts(locus_to_plot,dependency_directory,output_directory)
+function []= plot_allele_ratio(locus_to_plot,dependency_directory,output_directory)
 
 
 set(0,'DefaultLineLineWidth',1)
