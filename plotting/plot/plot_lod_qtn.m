@@ -52,6 +52,7 @@ if length(idx_to_use)>0
     
     scatter(1:length(lod_to_plot),lod_to_plot,25,'b','filled')
     plot(lod_to_plot,'--b','LineWidth',1)
+    ylabel('LOD')
     
     
 

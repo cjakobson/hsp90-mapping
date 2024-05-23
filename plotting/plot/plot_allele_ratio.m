@@ -48,6 +48,7 @@ xlim([0 3])
 set(gca,'YScale','log')
 ylim([1/3 3])
 plot(xlim,[1 1],':r')
+ylabel('RM allele ratio')
 
 
 

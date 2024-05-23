@@ -61,7 +61,8 @@ xlim([0 length(sort_idx)])
 axis square
 set(gca,'YScale','log')
 ylim([1e-2 1])
-
+ylabel('fraction explained')
+xlabel('rank')
 
 subplot(2,4,plot_offset+2)
 n_to_output=100;
@@ -93,7 +94,8 @@ xlim([length(sort_idx)-n_to_output+1 length(sort_idx)])
 axis square
 set(gca,'YScale','log')
 ylim([1e-1 1])
-
+ylabel('fraction explained')
+xlabel('rank')
 
 
 

@@ -36,6 +36,8 @@ axis square
 xlim([-500 500])
 ylim([0 0.75])
 plot([0 0],ylim,':r')
+ylabel('\Delta\DeltaZ')
+xlabel('TSS dist. (bp)')
 
 
 end

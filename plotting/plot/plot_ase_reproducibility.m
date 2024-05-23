@@ -55,6 +55,8 @@ for i=1:2
             
             xlim([0 1])
             ylim(xlim)
+            xlabel('RM AF')
+            ylabel('RM AF')
             
             [r p]=corr(v1,v2,'rows','complete');
             text(0.8,0.1,num2str(r))

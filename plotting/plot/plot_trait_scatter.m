@@ -28,6 +28,8 @@ ylim(xlim)
 axis square
 [r p]=corr(v1,v2,'rows','complete');
 text(1,-2,num2str(r))
+xlabel('norm. growth')
+ylabel('norm. growth')
 
 
 end

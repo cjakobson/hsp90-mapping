@@ -70,6 +70,7 @@ ylim([0 2500])
 xticks(1:length(conditions))
 xtickangle(45)
 xticklabels(conditions)
+ylabel('spot size')
 
 [h p]=ttest2(to_plot{3},to_plot{4});
 text(3.5,2000,num2str(p))

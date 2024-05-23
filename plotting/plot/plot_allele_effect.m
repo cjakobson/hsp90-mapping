@@ -63,7 +63,8 @@ errorbar([v1 v2],[v3 v4],'.k')
 xlim([0.5 4.5])
 ylim([0 Inf])
 title([condition_to_plot ' ' num2str(locus_to_plot)])
-ylabel('norm. Z score')
+%ylabel('norm. Z score')
+ylabel('spot size')
 n=1;
 for k=1:2
     text(n,min(ylim),num2str(sum(idx{k})))

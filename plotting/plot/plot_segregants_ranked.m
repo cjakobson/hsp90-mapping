@@ -29,6 +29,8 @@ function [] = plot_segregants_ranked(condition_to_plot,dependency_directory,outp
     bar(v2_sort)
     xlim([0 sum(~isnan(v1_sort))+1])
     ylim([-3 3])
+    xlabel('segregants')
+    ylabel('norm. growth')
     
     
 end

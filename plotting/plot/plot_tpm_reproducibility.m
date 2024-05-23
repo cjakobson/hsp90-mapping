@@ -112,6 +112,8 @@ for i=1:length(strains_to_plot)
             xlim([1 1e6])
             ylim(xlim)
             axis square
+            xlabel('TPM')
+            ylabel('TPM')
             
             [r p]=corr(log10(v1),log10(v2),'rows','complete');
             text(10,1e5,num2str(r))

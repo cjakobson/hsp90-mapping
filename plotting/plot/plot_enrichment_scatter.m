@@ -61,7 +61,8 @@ xlim([0 0.7])
 ylim([-5 20])
 plot(xlim,[-log10(0.01) -log10(0.01)],':r')
 plot([0.1 0.1],ylim,':r')
-
+xlabel('fraction explained')
+ylabel('-log_{10}q')
 
 
 

@@ -36,7 +36,8 @@ end
 hold on
 histogram(n_qtls,[50:25:250])
 axis square
-
+ylabel('frequency')
+xlabel('number of QTLs')
 
 end
 

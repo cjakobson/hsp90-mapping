@@ -212,6 +212,7 @@ for i=strains_to_plot%1:length(strain_names)
             ylim([0.8 1.2])
         end
         plot(xlim,[1 1],':k')
+        ylabel('norm. to WT')
         
         if mod(j,2)==1
             vMerge=[];

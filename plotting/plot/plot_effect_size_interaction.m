@@ -32,6 +32,10 @@ xlim([0.5 2.5])
 ylim([0 0.5])
 [h p]=ttest2(to_plot{1},to_plot{2});
 text(1.5,0.4,num2str(p))
+ylabel('\Delta\DeltaZ')
+for i=1:length(to_plot)
+    text(i,0.45,num2str(length(to_plot{i})))
+end
 
 
 end

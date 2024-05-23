@@ -62,7 +62,7 @@ hold on
 easy_box(to_plot)
 ylim([-2 2])
 title(condition_to_plot)
-
+ylabel('relative growth')
 
 
 

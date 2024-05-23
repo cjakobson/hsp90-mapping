@@ -47,7 +47,8 @@ xlim([-0.5 0.5])
 ylim([-0.5 0.5])
 plot(xlim,[0 0],':r')
 plot([0 0],ylim,':r')
-
+xlabel('\Delta\DeltaZ condition 1')
+ylabel('\Delta\DeltaZ condition 2')
 
 
 

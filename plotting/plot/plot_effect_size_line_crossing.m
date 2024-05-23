@@ -38,7 +38,10 @@ text(1.5,0.4,num2str(p))
 text(3.5,0.4,num2str(p))
 set(gca,'YScale','log')
 ylim([0.01 1])
-
+ylabel('\Delta\DeltaZ')
+for i=1:length(to_plot)
+    text(i,0.9,num2str(length(to_plot{i})))
+end
 
 
 end

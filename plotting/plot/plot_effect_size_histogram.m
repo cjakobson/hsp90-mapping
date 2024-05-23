@@ -27,6 +27,8 @@ histogram(abs(input_data_hsp90.deltaZbuffer-input_data_hsp90.deltaZbaseline),0:0
 ylim([0 0.3])
 xlim([0 1])
 legend({'no rad','Hsp90-dep.'})
+ylabel('freq.')
+xlabel('effect size')
 
 
 end

@@ -270,6 +270,7 @@ for i=condition_to_plot%1:2
     xticks(1:4)
     xtickangle(45)
     xticklabels(strain_names{2})
+    ylabel('norm. to WT')
     
 end
 

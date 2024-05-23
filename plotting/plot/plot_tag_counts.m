@@ -44,7 +44,7 @@ for i=1:length(to_plot)
     scatter(i*ones(1,length(to_plot{i})),to_plot{i},10,'k','filled')
 end
 xlim([0.5 4.5])
-
+ylabel('est. counts')
 
 
 end

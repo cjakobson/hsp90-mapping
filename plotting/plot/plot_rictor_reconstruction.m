@@ -121,6 +121,7 @@ for k=condition_to_plot%1:length(idx_to_use)
     bar(v_mean)
     errorbar(1:length(v_mean),v_mean,v_sem,'k.')
     %title([tempNames{k} times{n}])
+    ylabel('norm. to wild type')
 
     if k<=3
         ylim([0.7 1.1])

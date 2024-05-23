@@ -147,7 +147,7 @@ ylim([-2 1])
 title(condition_to_plot)
 [h p]=ttest2(to_plot{1},to_plot{1});
 text(1.5,0.5,num2str(p))
-
+ylabel('allele effect (\DeltaZ)')
 
 
 end

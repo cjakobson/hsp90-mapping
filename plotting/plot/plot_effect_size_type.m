@@ -42,6 +42,7 @@ for i=1:length(to_plot)
         text((i+j)/2,0.3+0.1*i,num2str(p))
     end
 end
+ylabel('\Delta\DeltaZ')
 
 
 end

@@ -188,6 +188,7 @@ for j=conditions_to_plot
     xticklabels(strain_names(strain_to_use))
     ylim([0.6 1.4])
     plot(xlim,[1 1],':k')
+    ylabel('norm. to WT')
 
     [h p]=ttest2(to_plot{strain_to_use(1)},to_plot{strain_to_use(2)});
     text(2,1.3,num2str(p))

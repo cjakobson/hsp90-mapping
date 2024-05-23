@@ -61,7 +61,7 @@ xticklabels(chaperone_names)
 set(gca,'YScale','log')
 ylim([0.5 3])
 plot(xlim,[1 1],':k')
-
+ylabel('rel. enrichment')
 
 
 

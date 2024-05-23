@@ -186,7 +186,7 @@ xticklabels(temp_labels(sortIdx))
 title('96h')
 legend({'geom.','linear+het','unexplained'})
 axis square
-
+ylabel('fraction explained')
 
 
 end

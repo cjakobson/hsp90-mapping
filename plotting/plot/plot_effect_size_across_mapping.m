@@ -37,6 +37,13 @@ xticklabels(temp_labels)
 xtickangle(45)
 title('effect size in no rad')
 ylabel('\DeltaZ')
+for i=1:length(to_plot)
+    text(i,0.9,num2str(length(to_plot{i})))
+end
+for i=2:length(to_plot)
+    [h p]=ttest2(to_plot{1},to_plot{i});
+    text((i+1)/2,0.4+0.1*i,num2str(p))
+end
 
 
 
@@ -57,7 +64,13 @@ xticklabels(temp_labels)
 xtickangle(45)
 title('effect size in rad')
 ylabel('\DeltaZ')
-
+for i=1:length(to_plot)
+    text(i,0.9,num2str(length(to_plot{i})))
+end
+for i=2:length(to_plot)
+    [h p]=ttest2(to_plot{1},to_plot{i});
+    text((i+1)/2,0.4+0.1*i,num2str(p))
+end
 
 end
 

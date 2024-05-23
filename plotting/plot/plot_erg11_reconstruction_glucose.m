@@ -141,7 +141,7 @@ xticks(1:length(strains{k}([1 4 1 4])))
 xtickangle(45)
 ylim([0.9 1.1])
 plot(xlim,[1 1],':r')
-
+ylabel('norm. to WT')
 
 
 end

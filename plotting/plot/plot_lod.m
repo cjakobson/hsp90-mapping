@@ -33,7 +33,8 @@ for k=1:length(breaks_to_plot)
     plot([breaks_to_plot(k) breaks_to_plot(k)],ylim,':k','LineWidth',1)
 end
 plot(xlim,[perm_thresh perm_thresh],':r')
-
+xlabel('genomic coordinate')
+ylabel('LOD')
 
 
 

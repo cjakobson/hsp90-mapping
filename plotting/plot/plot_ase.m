@@ -30,7 +30,8 @@ set(gca,'YScale','log')
 xlim([1e-2 1e2])
 ylim(xlim)
 plot(xlim,ylim,':r')
-
+xlabel('RM allele ratio')
+ylabel('RM allele ratio')
 
 
 end

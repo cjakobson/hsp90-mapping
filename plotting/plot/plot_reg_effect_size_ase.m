@@ -45,6 +45,12 @@ for i=2:length(to_plot)
     [h p]=ttest2(to_plot{1},to_plot{i});
     text(i-0.5,0.45,num2str(p))
 end
+ylabel('\Delta\DeltaZ')
+xticks(1:length(to_plot))
+xtickangle(45)
+xticklabels({'buff. has ASE','buff. no ASE','pot. has ASE','pot. no ASE'})
+
+
 
 end
 

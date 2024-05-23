@@ -236,7 +236,9 @@ for i=[1 3]
     easy_box(to_sub_plot2{i})
     ylim([0 350])
     plot(xlim,[median(to_sub_plot2{i}{end}) median(to_sub_plot2{i}{end})],':r')
+    ylabel('spot size')
     n=n+1;
+
     
 end
 
