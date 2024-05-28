@@ -334,19 +334,19 @@ figure('units','normalized','outerposition',[0 0 1 1])
 %B
 %chaperone and cochaperone enrichments
 subplot(2,4,1)
-plot_chaperone_enrichments(dependency_directory,output_directory)
+plot_chaperone_enrichments(0,1,dependency_directory,output_directory)
 
 
 %C and C inset -- zoom in
 %fraction of modified loci interacting
-plot_fraction_interactors(1,dependency_directory,output_directory)
+plot_fraction_interactors(1,0,1,dependency_directory,output_directory)
 
 
 
 %D
 %scatter plot fraction enriched/enrichment pVal
 subplot(2,4,4)
-plot_enrichment_scatter(dependency_directory,output_directory)
+plot_enrichment_scatter(0,1,dependency_directory,output_directory)
 
 
 
@@ -368,13 +368,27 @@ print([output_directory 'figure_3'],'-djpeg','-r300')
 figure('units','normalized','outerposition',[0 0 1 1])
 
 %A
-%enrichment for all kinases
+%all Hsp70s
 subplot(2,2,1)
-plot_all_kinases(dependency_directory,output_directory)
+plot_chaperone_enrichments(0,2,dependency_directory,output_directory)
+
+
 
 %B
-%also for all other TFs?
+%all Hsp40s
 subplot(2,2,2)
+plot_chaperone_enrichments(0,3,dependency_directory,output_directory)
+
+
+
+%C
+%enrichment for all kinases
+subplot(2,2,3)
+plot_all_kinases(dependency_directory,output_directory)
+
+%C
+%also for all other TFs
+subplot(2,2,4)
 plot_all_tfs(dependency_directory,output_directory)
 
 

@@ -1,4 +1,4 @@
-function [] = plot_enrichment_scatter(dependency_directory,output_directory)
+function [] = plot_enrichment_scatter(input_data_switch,list_to_use,dependency_directory,output_directory)
 
 set(0,'DefaultLineLineWidth',1)
 set(0,'DefaultFigureColor','w')
@@ -10,7 +10,15 @@ orange=[248 149 33]./256;
 grey=[128 128 128]./256;
 
 
-load([output_directory 'biogrid_data.mat'])
+
+if input_data_switch==0
+    load([dependency_directory 'biogrid_data.mat'])
+elseif input_data_switch==1
+    load([dependency_directory 'biogrid_data_physical.mat'])
+elseif input_data_switch==2
+    load([dependency_directory 'biogrid_data_genetic.mat'])
+end
+
 
 
 mapping_input=readtable([dependency_directory 'linear_hsp90_fdr_0.05.csv']);
@@ -29,20 +37,18 @@ input_genes{3}=[variant_info.gene1;variant_info.gene2];
 input_genes{3}(cellfun(@isempty,input_genes{3}))=[];
 
 [overlap_mat,interactor_pval,relative_mat] = ...
-    calculate_fraction_interactors(input_genes,dependency_directory,output_directory);
+    calculate_fraction_interactors(input_data_switch,input_genes,dependency_directory,output_directory);
 
 %Hsp90/70 machinery
 %see https://journals.asm.org/doi/10.1128/mmbr.05018-11
-chaperone_query={'YMR186W','YPL240C',...
-    'YOR027W','YNL064C','YDR168W',...
-    'YAL005C','YLL024C','YBL075C','YER103W',...
-    'YDL229W','YNL209W','YPL106C','YBR169C','YGR123C',...
-    'YKL117W','YJR032W','YDR214W','YOR057W'};
-chaperone_names={'Hsc82','Hsp82',...
-    'Sti1','Ydj1','Cdc37',...
-    'Ssa1','Ssa2','Ssa3','Ssa4',...
-    'Ssb1','Ssb2','Sse1','Sse2','Ppt1'...
-    'Sba1','Cpr7','Aha1','Sgt1',};
+chaperone_input=readtable([dependency_directory 'chaperone_lists.csv']);
+chaperone_query=table2array(chaperone_input(:,list_to_use));
+
+chaperone_query(cellfun(@isempty,chaperone_query))=[];
+
+for i=1:length(chaperone_query)
+    chaperone_names{i}=all_labels{ismember(all_genes,chaperone_query{i})};
+end
 
 
 hold on

@@ -1,8 +1,18 @@
 function [overlap_mat,interactor_pval,relative_mat] = ...
-    calculate_fraction_interactors(input_genes,dependency_directory,output_directory)
+    calculate_fraction_interactors(input_data_switch,input_genes,dependency_directory,output_directory)
 
 
-load([output_directory 'biogrid_data.mat'])
+
+if input_data_switch==0
+    load([dependency_directory 'biogrid_data.mat'])
+elseif input_data_switch==1
+    load([dependency_directory 'biogrid_data_physical.mat'])
+    interaction_mat=interaction_mat_physical;
+elseif input_data_switch==2
+    load([dependency_directory 'biogrid_data_genetic.mat'])
+    interaction_mat=interaction_mat_genetic;
+end
+
 
 interaction_thresh=25;
 
