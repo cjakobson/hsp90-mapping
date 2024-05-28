@@ -15,7 +15,6 @@ input_data=readtable([dependency_directory 'linear_hsp90_fdr_0.05.csv']);
 
 qtn_idx=input_data.isQtn==1;
 temp_genes=unique([input_data.gene1(qtn_idx);input_data.gene2(qtn_idx)]);
-%temp_genes=[input_data.gene1(qtn_idx);input_data.gene2(qtn_idx)];
 temp_genes(cellfun(@isempty,temp_genes))=[];
 
 qtn_genes=temp_genes;
@@ -61,11 +60,11 @@ for i=1:length(kinases)
     
     targets{i}=temp_data.ORF(temp_data.Likelihood>=thresh);
     
-    target_overlap{i,1}=intersect(targets{i},qtn_genes);
-    target_overlap{i,2}=intersect(targets{i},all_segregating_genes);
+    target_overlap(i,1)=sum(ismember(qtn_genes,targets{i}));
+    target_overlap(i,2)=sum(ismember(all_segregating_genes,targets{i}));
     
-    temp_table=table([length(target_overlap{i,1});length(qtn_genes)-length(target_overlap{i,1})],...
-        [length(target_overlap{i,2});length(all_segregating_genes)-length(target_overlap{i,2})],...
+    temp_table=table([target_overlap(i,1);length(qtn_genes)-target_overlap(i,1)],...
+        [target_overlap(i,2);length(all_segregating_genes)-target_overlap(i,2)],...
         'VariableNames',{'interacting','all other'},'RowNames',{'client','not client'});
     [h,p,stats]=fishertest(temp_table);
     
@@ -74,14 +73,14 @@ for i=1:length(kinases)
     
 end
 
-n_mat=cellfun(@length,target_overlap);
 
 for i=1:length(kinases)
         
-    f_mat(i,1)=n_mat(i,1)/length(qtn_genes);
-    f_mat(i,2)=n_mat(i,2)/length(all_segregating_genes);  
+    f_mat(i,1)=target_overlap(i,1)/length(qtn_genes);
+    f_mat(i,2)=target_overlap(i,2)/length(all_segregating_genes);  
      
 end
+
 
 qtn_odds_ratio=f_mat(:,1)./f_mat(:,2);
 
@@ -96,6 +95,10 @@ kinase_to_use=kinases(to_use);
 v1=qtn_odds_ratio(to_use);
 v2=q_to_use;
 v3=kinase_to_use;
+
+
+
+
 
 [~,sort_idx]=sort(v1,'descend');
 
@@ -142,11 +145,11 @@ end
 
 for i=1:length(v_tf)
     
-    tf_target_overlap{i,1}=intersect(tf_targets{i},qtn_genes);
-    tf_target_overlap{i,2}=intersect(tf_targets{i},all_segregating_genes);
+    tf_target_overlap(i,1)=sum(ismember(qtn_genes,tf_targets{i}));
+    tf_target_overlap(i,2)=sum(ismember(all_segregating_genes,tf_targets{i}));
     
-    temp_table=table([length(tf_target_overlap{i,1});length(qtn_genes)-length(tf_target_overlap{i,1})],...
-        [length(tf_target_overlap{i,2});length(all_segregating_genes)-length(tf_target_overlap{i,2})],...
+    temp_table=table([tf_target_overlap(i,1);length(qtn_genes)-tf_target_overlap(i,1)],...
+        [tf_target_overlap(i,2);length(all_segregating_genes)-tf_target_overlap(i,2)],...
         'VariableNames',{'interacting','all other'},'RowNames',{'client','not client'});
     [h,p,stats]=fishertest(temp_table);
     
@@ -156,19 +159,18 @@ for i=1:length(v_tf)
 end
 
 
-n_mat_tf=cellfun(@length,tf_target_overlap);
 
 for i=1:length(v_tf)
         
-    f_mat_tf(i,1)=n_mat_tf(i,1)/length(qtn_genes);
-    f_mat_tf(i,2)=n_mat_tf(i,2)/length(all_segregating_genes);  
+    f_mat_tf(i,1)=tf_target_overlap(i,1)/length(qtn_genes);
+    f_mat_tf(i,2)=tf_target_overlap(i,2)/length(all_segregating_genes);  
      
 end
 
 tf_qtn_odds_ratio=f_mat_tf(:,1)./f_mat_tf(:,2);
 
 
-q_thresh=0.05;
+%q_thresh=0.05;
 to_use=tf_qtn_pval<q_thresh;
 q_to_use=tf_qtn_pval(to_use);
 tf_to_use=v_tf(to_use);
@@ -227,7 +229,7 @@ for i=1:length(chaperone_query)
     v_temp2(i)=interactor_pval(temp_idx);
 end
 
-q_thresh=0.05;
+%q_thresh=0.05;
 to_use=find(v_temp2<q_thresh);
 %sort by descending OR for merged fig
 v1=v_temp1(to_use);
