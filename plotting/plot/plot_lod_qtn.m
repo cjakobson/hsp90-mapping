@@ -24,7 +24,7 @@ trait_to_use=trait{ismember(filename,[condition_to_plot '_delta'])};
 mapping_data_to_load=[condition_to_plot '_delta.mat'];
 load([dependency_directory 'linear-hsp90/' mapping_data_to_load])
 
-%assume input locus doesn't hav 
+%assume input locus doesn't have geometric offset
 idx_to_use=find(ismember(posToMap,locus_to_plot+41));
 
 if length(idx_to_use)>0

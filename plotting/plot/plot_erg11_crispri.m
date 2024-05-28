@@ -237,6 +237,12 @@ for i=[1 3]
     ylim([0 350])
     plot(xlim,[median(to_sub_plot2{i}{end}) median(to_sub_plot2{i}{end})],':r')
     ylabel('spot size')
+    if i==1
+        title('no rad')
+    elseif i==3
+        title('+rad')
+    end
+            
     n=n+1;
 
     

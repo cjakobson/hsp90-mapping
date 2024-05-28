@@ -272,52 +272,61 @@ figure('units','normalized','outerposition',[0 0 1 1])
 
 
 %A
-%ERG11 reconstruction in teb
-%from readSgaDataErg11rad.m
-plot_erg11_reconstruction(1,[3 4],0,dependency_directory,output_directory)
+%ERG11 allele effect
+%from hsp90examplesDelta.m
+subplot(2,4,1)
+plot_allele_effect(4974,'72h fluconazole_100uM',dependency_directory,output_directory)
 
 
 %B
-%ERG11 reconstruction in glc
-%from plotRadPhenotyping2.m
-plot_erg11_reconstruction_glucose(1,2,dependency_directory,output_directory)
+%ERG11 reconstruction in teb
+%from readSgaDataErg11rad.m
+plot_erg11_reconstruction(1,[3 4],2,dependency_directory,output_directory)
 
 
 %C
-%n/a
+%ERG11 reconstruction in glc
+%from plotRadPhenotyping2.m
+plot_erg11_reconstruction_glucose(1,4,dependency_directory,output_directory)
 
 
 %D
+%n/a
+
+
+%E
 %ASE power calculation
 %from calculateASE.m
-subplot(2,4,3)
+subplot(2,4,4)
 plot_ase_power(dependency_directory,output_directory)
 
 
 
-%E
+%F
 %ASE -/+rad for all sites
-subplot(2,4,4)
+subplot(2,4,5)
 plot_ase_all(dependency_directory,output_directory)
 
 
 
-%F
+%G
 %effect size for has ASE/not for all SNPs
-subplot(2,8,9)
+subplot(2,8,11)
 plot_effect_size_ase(dependency_directory,output_directory)
 
 
 
-%G
+%H
 %effect size of protein-coding variants by interaction type and -/+ASE
-subplot(2,4,6)
+subplot(2,4,7)
 plot_coding_effect_size_ase(dependency_directory,output_directory)
 
 
 set(gcf,'PaperPositionMode','auto')
 print([output_directory 'figure_S2'],'-dsvg','-r0')
 print([output_directory 'figure_S2'],'-djpeg','-r300')
+
+
 
 
 
@@ -383,14 +392,8 @@ plot_chaperone_enrichments(0,3,dependency_directory,output_directory)
 
 %C
 %enrichment for all kinases
-subplot(2,2,3)
+subplot(2,1,2)
 plot_all_kinases(dependency_directory,output_directory)
-
-%D
-%also for all other TFs
-subplot(2,2,4)
-plot_all_tfs(dependency_directory,output_directory)
-
 
 
 
@@ -403,11 +406,18 @@ print([output_directory 'figure_S3_1'],'-djpeg','-r300')
 
 figure('units','normalized','outerposition',[0 0 1 1])
 
+%D
+%also for all other TFs
+subplot(2,1,1)
+plot_all_tfs(dependency_directory,output_directory)
+
+
+
 
 %E
 %Ub ligases
 %see https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3454868/
-subplot(2,1,1)
+subplot(2,1,2)
 plot_chaperone_enrichments(1,4,dependency_directory,output_directory)
 
 
@@ -479,12 +489,13 @@ plot_mutational_steps(loci_to_plot,ref_allele,'72h min glc_2%',...
 %gene age for interacting variants
 subplot(2,4,3)
 plot_gene_age_all(dependency_directory,output_directory)
+title('all QTNs')
 
 %G
 %only regulatory
 subplot(2,4,4)
 plot_gene_age_type(3,dependency_directory,output_directory)
-
+title('regulatory')
 
 
 
@@ -560,13 +571,14 @@ plot_allele_pleiotropy_scatter(dependency_directory,output_directory)
 %G
 subplot(2,4,2)
 plot_gene_age_type(1,dependency_directory,output_directory)
+title('missense')
 
 
 %H
 %gene age for buffered
 subplot(2,4,3)
 plot_gene_age_interaction(1,dependency_directory,output_directory)
-
+title('all buffered')
 
 
 %new panel
@@ -574,13 +586,17 @@ plot_gene_age_interaction(1,dependency_directory,output_directory)
 %I
 subplot(2,4,4)
 plot_gene_age_interaction(2,dependency_directory,output_directory)
-
+title('all potentiated')
 
 
 
 set(gcf,'PaperPositionMode','auto')
 print([output_directory 'figure_S4_2'],'-dsvg','-r0')
 print([output_directory 'figure_S4_2'],'-djpeg','-r300')
+
+
+
+
 
 
 close all
@@ -601,6 +617,7 @@ figure('units','normalized','outerposition',[0 0 1 1])
 %ERG11 CRISPRi experiment
 %raw data for YJM975 flc and flc+rad
 plot_erg11_crispri(0,dependency_directory,output_directory)
+
 
 
 %D
@@ -642,11 +659,13 @@ figure('units','normalized','outerposition',[0 0 1 1])
 %Erg11 variants in flc/rad
 subplot(2,4,1)
 plot_erg11_mutants(1,dependency_directory,output_directory)
+title('fluconazole')
 
 %C
 %same in teb
 subplot(2,4,2)
 plot_erg11_mutants(2,dependency_directory,output_directory)
+title('tebuconazole')
 
 
 %D

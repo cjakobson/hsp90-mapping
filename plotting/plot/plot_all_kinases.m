@@ -1,4 +1,4 @@
-rifunction [] = plot_kinase_tf_enrichments(dependency_directory,output_directory)
+function [] = plot_kinase_tf_enrichments(dependency_directory,output_directory)
 
 
 set(0,'DefaultLineLineWidth',1)
