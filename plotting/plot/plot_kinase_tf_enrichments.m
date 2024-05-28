@@ -15,15 +15,10 @@ input_data=readtable([dependency_directory 'linear_hsp90_fdr_0.05.csv']);
 
 qtn_idx=input_data.isQtn==1;
 temp_genes=unique([input_data.gene1(qtn_idx);input_data.gene2(qtn_idx)]);
+%temp_genes=[input_data.gene1(qtn_idx);input_data.gene2(qtn_idx)];
 temp_genes(cellfun(@isempty,temp_genes))=[];
 
 qtn_genes=temp_genes;
-
-
-temp_genes=unique([input_data.gene1;input_data.gene2]);
-temp_genes(cellfun(@isempty,temp_genes))=[];
-
-qtl_genes=temp_genes;
 
 
 variant_info=readtable([dependency_directory 'variantInfoStructure.csv']);
@@ -43,12 +38,12 @@ v_delta_delta_z=abs(input_data.deltaZbuffer-input_data.deltaZbaseline);
 %kinase data from MOTIPS/https://www.science.org/doi/10.1126/scisignal.2000482
 %(dataset 2)
 
-tempNames=dir([dependency_directory 'Dataset S2']);
+temp_names=dir([dependency_directory 'Dataset S2']);
 
 m=1;
-for i=4:length(tempNames)
+for i=4:length(temp_names)
     
-    kinases{m}=tempNames(i).name;
+    kinases{m}=temp_names(i).name;
     m=m+1;
     
 end
@@ -59,61 +54,59 @@ kinases=kinases';
 thresh=1;
 for i=1:length(kinases)
     
-    tempNames=dir([dependency_directory 'Dataset S2/' kinases{i}]);
-    toGet=tempNames(3).name;
+    temp_names=dir([dependency_directory 'Dataset S2/' kinases{i}]);
+    to_get=temp_names(3).name;
     
-    tempData=readtable([dependency_directory 'Dataset S2/' kinases{i} '/' toGet],'FileType','text');
+    temp_data=readtable([dependency_directory 'Dataset S2/' kinases{i} '/' to_get],'FileType','text');
     
-    targets{i}=tempData.ORF(tempData.Likelihood>=thresh);
+    targets{i}=temp_data.ORF(temp_data.Likelihood>=thresh);
     
-    targetOverlap{i,1}=intersect(targets{i},qtn_genes);
-    targetOverlap{i,2}=intersect(targets{i},qtl_genes);
-    targetOverlap{i,3}=intersect(targets{i},all_segregating_genes);
+    target_overlap{i,1}=intersect(targets{i},qtn_genes);
+    target_overlap{i,2}=intersect(targets{i},all_segregating_genes);
     
-    tempTable=table([length(targetOverlap{i,1});length(qtn_genes)-length(targetOverlap{i,1})],...
-        [length(targetOverlap{i,3});length(all_segregating_genes)-length(targetOverlap{i,3})],...
+    temp_table=table([length(target_overlap{i,1});length(qtn_genes)-length(target_overlap{i,1})],...
+        [length(target_overlap{i,2});length(all_segregating_genes)-length(target_overlap{i,2})],...
         'VariableNames',{'interacting','all other'},'RowNames',{'client','not client'});
-    [h,p,stats]=fishertest(tempTable);
+    [h,p,stats]=fishertest(temp_table);
     
-    qtnPval(i)=p*length(kinases);
+    qtn_pval(i)=p*length(kinases);
     
     
 end
 
-nMat=cellfun(@length,targetOverlap);
+n_mat=cellfun(@length,target_overlap);
 
 for i=1:length(kinases)
         
-    fMat(i,1)=nMat(i,1)/length(qtn_genes);
-    fMat(i,2)=nMat(i,2)/length(qtl_genes);
-    fMat(i,3)=nMat(i,3)/length(all_segregating_genes);  
+    f_mat(i,1)=n_mat(i,1)/length(qtn_genes);
+    f_mat(i,2)=n_mat(i,2)/length(all_segregating_genes);  
      
 end
 
-qtnOddsRatio=fMat(:,1)./fMat(:,3);
+qtn_odds_ratio=f_mat(:,1)./f_mat(:,2);
 
-qThresh=0.05;
-
-
-toUse=qtnPval<qThresh;
-qToUse=qtnPval(toUse);
-kinaseToUse=kinases(toUse);
+q_thresh=0.05;
 
 
-v1=qtnOddsRatio(toUse);
-v2=qToUse;
-v3=kinaseToUse;
-
-[~,sortIdx]=sort(v1,'descend');
-
-oddsForMerge=[];
-pForMerge=[];
-labelsForMerge=[];
+to_use=qtn_pval<q_thresh;
+q_to_use=qtn_pval(to_use);
+kinase_to_use=kinases(to_use);
 
 
-oddsForMerge=[oddsForMerge; v1(sortIdx)];
-pForMerge=[pForMerge v2(sortIdx)];
-labelsForMerge=[labelsForMerge; v3(sortIdx)];
+v1=qtn_odds_ratio(to_use);
+v2=q_to_use;
+v3=kinase_to_use;
+
+[~,sort_idx]=sort(v1,'descend');
+
+odds_for_merge=[];
+q_for_merge=[];
+labels_for_merge=[];
+
+
+odds_for_merge=[odds_for_merge; v1(sort_idx)];
+q_for_merge=[q_for_merge v2(sort_idx)];
+labels_for_merge=[labels_for_merge; v3(sort_idx)];
 
 
 
@@ -123,93 +116,149 @@ labelsForMerge=[labelsForMerge; v3(sortIdx)];
 
 [num,txt]=xlsread([dependency_directory '41586_2021_3314_MOESM4_ESM.xlsx'],6);
 
-vTF=txt(2,4:374);
+v_tf=txt(2,4:374);
 
-vTFgenes=txt(9:5872,2);
+v_tf_genes=txt(9:5872,2);
 
-vTFtype=txt(6,4:374);
+v_tf_type=txt(6,4:374);
 
 clear txt
 
-tfMat=num(9:5872,4:374);
+tf_mat=num(9:5872,4:374);
 
 clear num
 
-toUse=ismember(vTFtype,'TF');
+to_use=ismember(v_tf_type,'TF');
 
-vTF=vTF(toUse);
-tfMat=tfMat(:,toUse);
+v_tf=v_tf(to_use);
+tf_mat=tf_mat(:,to_use);
 
 
-for i=1:length(vTF)
+for i=1:length(v_tf)
     
-    tfTargets{i}=vTFgenes(logical(tfMat(:,i)));
+    tf_targets{i}=v_tf_genes(logical(tf_mat(:,i)));
     
 end
 
-for i=1:length(vTF)
+for i=1:length(v_tf)
     
-    tfTargetOverlap{i,1}=intersect(tfTargets{i},qtn_genes);
-    tfTargetOverlap{i,2}=intersect(tfTargets{i},qtl_genes);
-    tfTargetOverlap{i,3}=intersect(tfTargets{i},all_segregating_genes);
+    tf_target_overlap{i,1}=intersect(tf_targets{i},qtn_genes);
+    tf_target_overlap{i,2}=intersect(tf_targets{i},all_segregating_genes);
     
-    tempTable=table([length(tfTargetOverlap{i,1});length(qtn_genes)-length(tfTargetOverlap{i,1})],...
-        [length(tfTargetOverlap{i,3});length(all_segregating_genes)-length(tfTargetOverlap{i,3})],...
+    temp_table=table([length(tf_target_overlap{i,1});length(qtn_genes)-length(tf_target_overlap{i,1})],...
+        [length(tf_target_overlap{i,2});length(all_segregating_genes)-length(tf_target_overlap{i,2})],...
         'VariableNames',{'interacting','all other'},'RowNames',{'client','not client'});
-    [h,p,stats]=fishertest(tempTable);
+    [h,p,stats]=fishertest(temp_table);
     
-    tfQtnPval(i)=p*length(vTF);
+    tf_qtn_pval(i)=p*length(v_tf);
     
     
 end
 
 
-nMatTf=cellfun(@length,tfTargetOverlap);
+n_mat_tf=cellfun(@length,tf_target_overlap);
 
-for i=1:length(vTF)
+for i=1:length(v_tf)
         
-    fMatTf(i,1)=nMatTf(i,1)/length(qtn_genes);
-    fMatTf(i,2)=nMatTf(i,2)/length(qtl_genes);
-    fMatTf(i,3)=nMatTf(i,3)/length(all_segregating_genes);  
+    f_mat_tf(i,1)=n_mat_tf(i,1)/length(qtn_genes);
+    f_mat_tf(i,2)=n_mat_tf(i,2)/length(all_segregating_genes);  
      
 end
 
-tfQtnOddsRatio=fMatTf(:,1)./fMatTf(:,3);
+tf_qtn_odds_ratio=f_mat_tf(:,1)./f_mat_tf(:,2);
 
 
-qThresh=0.05;
-toUse=tfQtnPval<qThresh;
-qToUse=tfQtnPval(toUse);
-tfToUse=vTF(toUse);
+q_thresh=0.05;
+to_use=tf_qtn_pval<q_thresh;
+q_to_use=tf_qtn_pval(to_use);
+tf_to_use=v_tf(to_use);
 
 
 
 %sort by descending OR for merged fig
-v1=tfQtnOddsRatio(toUse);
-v2=qToUse;
-v3=tfToUse';
+v1=tf_qtn_odds_ratio(to_use);
+v2=q_to_use;
+v3=tf_to_use';
 
-[~,sortIdx]=sort(v1,'descend');
+[~,sort_idx]=sort(v1,'descend');
 
-oddsForMerge=[oddsForMerge; v1(sortIdx)];
-pForMerge=[pForMerge v2(sortIdx)];
-labelsForMerge=[labelsForMerge; v3(sortIdx)];
+odds_for_merge=[odds_for_merge; v1(sort_idx)];
+q_for_merge=[q_for_merge v2(sort_idx)];
+labels_for_merge=[labels_for_merge; v3(sort_idx)];
+
+
+
+%also add enriched e3s
+load([dependency_directory 'biogrid_data_physical.mat'])
+
+mapping_input=readtable([dependency_directory 'linear_hsp90_fdr_0.05.csv']);
+%only QTNs
+mapping_input=mapping_input(mapping_input.isQtn==1,:);
+
+input_genes{1}=mapping_input.gene1;
+input_genes{1}(cellfun(@isempty,input_genes{1}))={'NA'};
+input_genes{2}=mapping_input.gene2;
+input_genes{2}(cellfun(@isempty,input_genes{2}))={'NA'};
+
+
+variant_info=readtable([dependency_directory 'variantInfoStructure.csv']);
+
+input_genes{3}=[variant_info.gene1;variant_info.gene2];
+input_genes{3}(cellfun(@isempty,input_genes{3}))=[];
+
+[overlap_mat,interactor_pval,relative_mat] = ...
+    calculate_fraction_interactors(1,input_genes,dependency_directory,output_directory);
+
+%Hsp90/70 machinery
+%see https://journals.asm.org/doi/10.1128/mmbr.05018-11
+list_to_use=4;
+chaperone_input=readtable([dependency_directory 'chaperone_lists.csv']);
+chaperone_query=table2array(chaperone_input(:,list_to_use));
+
+chaperone_query(cellfun(@isempty,chaperone_query))=[];
+
+for i=1:length(chaperone_query)
+    chaperone_names{i}=all_labels{ismember(all_genes,chaperone_query{i})};
+end
+
+for i=1:length(chaperone_query)
+    temp_idx=ismember(all_genes,chaperone_query{i});
+    v_temp1(i)=relative_mat(1,temp_idx);
+    v_temp2(i)=interactor_pval(temp_idx);
+end
+
+q_thresh=0.05;
+to_use=find(v_temp2<q_thresh);
+%sort by descending OR for merged fig
+v1=v_temp1(to_use);
+v2=v_temp2(to_use);
+v3=chaperone_names(to_use);
+
+[~,sort_idx]=sort(v1,'descend');
+
+
+
+odds_for_merge=[odds_for_merge; v1(sort_idx)'];
+q_for_merge=[q_for_merge v2(sort_idx)];
+labels_for_merge=[labels_for_merge; v3(sort_idx)'];
+
+
 
 
 
 hold on
-bar(oddsForMerge)
+bar(odds_for_merge)
 %ylim([0 3])
 set(gca,'YScale','log')
 ylim([0.5 3])
 plot(xlim,[1 1],':r')
 ylabel('QTN odds ratio')
-xticks(1:length(oddsForMerge))
+xticks(1:length(odds_for_merge))
 xtickangle(45)
-xticklabels(labelsForMerge)
-for i=1:length(pForMerge)
-    if pForMerge(i)<qThresh
-        h=text(i,2.2,num2str(pForMerge(i)));
+xticklabels(labels_for_merge)
+for i=1:length(q_for_merge)
+    if q_for_merge(i)<q_thresh
+        h=text(i,2.2,num2str(q_for_merge(i)));
         set(h,'Rotation',45);
     end
 end

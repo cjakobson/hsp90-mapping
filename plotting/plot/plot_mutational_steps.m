@@ -145,7 +145,7 @@ hold on
 easy_box_with_dots(v_delta)
 ylim([-2 1])
 title(condition_to_plot)
-[h p]=ttest2(to_plot{1},to_plot{1});
+[h p]=ttest2(v_delta{1},v_delta{2});
 text(1.5,0.5,num2str(p))
 ylabel('allele effect (\DeltaZ)')
 

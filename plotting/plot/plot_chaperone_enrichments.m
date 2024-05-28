@@ -56,7 +56,9 @@ for i=1:length(chaperone_query)
 end
 bar(v1)
 for i=1:length(v2)
-    text(i,1.5+0.1*i,num2str(v2(i)))
+    if v2(i)<0.05
+        text(i,1.5+0.02*i,num2str(v2(i)))
+    end
 end
 xticks(1:length(chaperone_names))
 xtickangle(45)

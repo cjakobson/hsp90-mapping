@@ -1,4 +1,4 @@
-function [] = plot_kinase_tf_enrichments(dependency_directory,output_directory)
+rifunction [] = plot_kinase_tf_enrichments(dependency_directory,output_directory)
 
 
 set(0,'DefaultLineLineWidth',1)
@@ -129,7 +129,7 @@ xticks(1:length(oddsForMerge))
 xtickangle(45)
 xticklabels(labelsForMerge)
 for i=1:length(pForMerge)
-    if pForMerge(i)<qThresh
+    if pForMerge(i)<0.05
         h=text(i,2.2,num2str(pForMerge(i)));
         set(h,'Rotation',45);
     end

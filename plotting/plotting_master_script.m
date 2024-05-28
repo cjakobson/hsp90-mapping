@@ -13,8 +13,8 @@ blue=[43 172 226]./256;
 orange=[248 149 33]./256;
 grey=[128 128 128]./256;
 
-%filebase='/Users/cjakobson/';
-filebase='/Users/christopherjakobson/';
+filebase='/Users/cjakobson/';
+%filebase='/Users/christopherjakobson/';
 
 code_directory=[filebase 'Documents/GitHub/hsp90-mapping/'];
 dependency_directory=[filebase '/Dropbox/JaroszLab/hsp90mapping/hsp90-mapping-dependencies/'];
@@ -406,8 +406,9 @@ figure('units','normalized','outerposition',[0 0 1 1])
 
 %E
 %Ub ligases
-subplot(2,2,1)
-plot_chaperone_enrichments(0,4,dependency_directory,output_directory)
+%see https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3454868/
+subplot(2,1,1)
+plot_chaperone_enrichments(1,4,dependency_directory,output_directory)
 
 
 

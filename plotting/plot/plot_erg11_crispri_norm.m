@@ -250,7 +250,7 @@ for i=strain_to_plot%1:length(temp_labels1)
     v_sem_to_plot=v_sem_all((2+i):4:length(v_sem_all));
     v_to_plot_all=to_plot_all((2+i):4:length(v_sem_all));
     
-    for j=condition__to_plot%1:length(temp_labels2)
+    for j=condition__to_plot
         
         temp_idx=fliplr(20*(j-1)+(1:20));
         
@@ -259,10 +259,19 @@ for i=strain_to_plot%1:length(temp_labels1)
         v3=v_to_plot_all(temp_idx);
         
         hold on
-        %-rad
-        errorbar((1:5),v1(1:5),v2(1:5),'-r','Linewidth',2)
         %+rad
+        errorbar((1:5),v1(1:5),v2(1:5),'-r','Linewidth',2)
+        %-rad
         errorbar((1:5),v1(11:15),v2(11:15),'-k','Linewidth',2)
+        
+        %logistic fits
+        f_opt=fitoptions('Method','NonlinearLeastSquares',...
+               'Lower',[0,0,0,0],...
+               'Upper',[1,Inf,Inf,1],...
+               'StartPoint',[0 1 1 1]);
+        ft=fittype('(a-d)/(1+(x/c)^b)+d','options',f_opt);
+        f1=fit((1:5)',v1(11:15)',ft)
+        f2=fit((1:5)',v1(1:5)',ft)
         
         %p vals for rad vs not
         for ii=1:5
