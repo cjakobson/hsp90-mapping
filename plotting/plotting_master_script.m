@@ -386,7 +386,7 @@ plot_chaperone_enrichments(0,3,dependency_directory,output_directory)
 subplot(2,2,3)
 plot_all_kinases(dependency_directory,output_directory)
 
-%C
+%D
 %also for all other TFs
 subplot(2,2,4)
 plot_all_tfs(dependency_directory,output_directory)
@@ -395,8 +395,28 @@ plot_all_tfs(dependency_directory,output_directory)
 
 
 set(gcf,'PaperPositionMode','auto')
-print([output_directory 'figure_S3'],'-dsvg','-r0')
-print([output_directory 'figure_S3'],'-djpeg','-r300')
+print([output_directory 'figure_S3_1'],'-dsvg','-r0')
+print([output_directory 'figure_S3_1'],'-djpeg','-r300')
+
+
+
+
+figure('units','normalized','outerposition',[0 0 1 1])
+
+
+%E
+%Ub ligases
+subplot(2,2,1)
+plot_chaperone_enrichments(0,4,dependency_directory,output_directory)
+
+
+
+
+set(gcf,'PaperPositionMode','auto')
+print([output_directory 'figure_S3_2'],'-dsvg','-r0')
+print([output_directory 'figure_S3_2'],'-djpeg','-r300')
+
+
 
 
 
