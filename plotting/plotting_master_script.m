@@ -13,8 +13,8 @@ blue=[43 172 226]./256;
 orange=[248 149 33]./256;
 grey=[128 128 128]./256;
 
-filebase='/Users/cjakobson/';
-%filebase='/Users/christopherjakobson/';
+%filebase='/Users/cjakobson/';
+filebase='/Users/christopherjakobson/';
 
 code_directory=[filebase 'Documents/GitHub/hsp90-mapping/'];
 dependency_directory=[filebase '/Dropbox/JaroszLab/hsp90mapping/hsp90-mapping-dependencies/'];
@@ -442,10 +442,6 @@ figure('units','normalized','outerposition',[0 0 1 1])
 %n/a
 
 %B
-%n/a
-
-
-%C 
 %mutational step effect sizes
 loci_to_plot(1)=4835;    %IMA1/MAL1
 loci_to_plot(2)=886;     %MAL3
@@ -454,14 +450,18 @@ loci_to_plot(3)=426;     %GAL10
 ref_allele=[1 1 -1];
 
 subplot(2,8,1)
-plot_mutational_steps(loci_to_plot,ref_allele,'72h min mal_2%',...
+condition_to_plot='72h min mal_2%';
+plot_mutational_steps(loci_to_plot,ref_allele,condition_to_plot,...
     dependency_directory,output_directory)
 
 
 subplot(2,8,2)
-plot_mutational_steps(loci_to_plot,ref_allele,'72h min raf_2%',...
+condition_to_plot='72h min raf_2%';
+plot_mutational_steps(loci_to_plot,ref_allele,condition_to_plot,...
     dependency_directory,output_directory)
 
+%C
+%n/a
 
 %D
 %same for flc/glc
@@ -472,12 +472,14 @@ loci_to_plot(3)=10060;     %GRE2
 ref_allele=[1 -1 1];
 
 subplot(2,8,3)
-plot_mutational_steps(loci_to_plot,ref_allele,'72h fluconazole_100uM',...
+condition_to_plot='72h fluconazole_100uM';
+plot_mutational_steps(loci_to_plot,ref_allele,condition_to_plot,...
     dependency_directory,output_directory)
 
 
 subplot(2,8,4)
-plot_mutational_steps(loci_to_plot,ref_allele,'72h min glc_2%',...
+condition_to_plot='72h min glc_2%';
+plot_mutational_steps(loci_to_plot,ref_allele,condition_to_plot,...
     dependency_directory,output_directory)
 
 

@@ -103,7 +103,8 @@ for i=0:3
             
             for l=1:length(idx2)
                 
-                v_delta{1}(m)=temp_mean(idx2(l))-temp_mean(idx1(k));
+                %v_delta{1}(m)=temp_mean(idx2(l))-temp_mean(idx1(k));
+                v_delta{1}(m)=abs(temp_mean(idx2(l))-temp_mean(idx1(k)));
                 m=m+1;
                 
             end
@@ -130,7 +131,8 @@ for i=0:3
             
             for l=1:length(idx2)
                 
-                v_delta{2}(m)=temp_mean(idx2(l))-temp_mean(idx1(k));
+                %v_delta{2}(m)=temp_mean(idx2(l))-temp_mean(idx1(k));
+                v_delta{2}(m)=abs(temp_mean(idx2(l))-temp_mean(idx1(k)));
                 m=m+1;
                 
             end
@@ -143,7 +145,9 @@ end
 
 hold on
 easy_box_with_dots(v_delta)
-ylim([-2 1])
+%ylim([-2 1])
+ylim([0 2])
+xlim([0.5 2.5])
 title(condition_to_plot)
 [h p]=ttest2(v_delta{1},v_delta{2});
 text(1.5,0.5,num2str(p))

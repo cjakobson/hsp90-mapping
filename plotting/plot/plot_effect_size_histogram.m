@@ -1,4 +1,4 @@
-function [] = plot_effect_size_line_crossing(dependency_directory,output_directory)
+function [] = plot_effect_size_histogram(dependency_directory,output_directory)
 
 
 set(0,'DefaultLineLineWidth',1)
@@ -21,8 +21,14 @@ input_data_no_rad=readtable([dependency_directory 'linear_no_rad_fdr_0.05.csv'])
 input_data_no_rad=input_data_no_rad(input_data_no_rad.isQtn==1,:);
 
 hold on
-histogram(abs(input_data_no_rad.deltaZbaseline),0:0.05:1,'Normalization','probability')
-histogram(abs(input_data_hsp90.deltaZbuffer-input_data_hsp90.deltaZbaseline),0:0.05:1,'Normalization','probability')
+to_plot{1}=abs(input_data_no_rad.deltaZbaseline);
+to_plot{2}=abs(input_data_hsp90.deltaZbuffer-input_data_hsp90.deltaZbaseline);
+
+%median(input_data_no_rad.varExp,'omitnan')
+%median(input_data_hsp90.varExp,'omitnan')
+
+histogram(to_plot{1},0:0.05:1,'Normalization','probability')
+histogram(to_plot{2},0:0.05:1,'Normalization','probability')
 
 ylim([0 0.3])
 xlim([0 1])
