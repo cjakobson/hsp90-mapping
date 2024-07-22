@@ -164,6 +164,7 @@ for i=1:length(exp_time)
     
 end
 
+%sort(f_explained,'ascend')
 
 %SDS didn't map well
 to_remove=11:12:length(temp_labels);

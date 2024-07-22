@@ -1,4 +1,4 @@
-function [] = plot_rictor_reconstruction(condition_to_plot,dependency_directory,output_directory)
+function [] = plot_rictor_reconstruction(condition_to_plot,plot_offset,dependency_directory,output_directory)
 
 
 set(0,'DefaultLineLineWidth',1)
@@ -88,7 +88,7 @@ for j=1:length(conditions{i})
 end
 
 
-m=1;
+m=plot_offset;
 
 %gather by genotype across conditions
 
