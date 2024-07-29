@@ -570,16 +570,10 @@ subplot(2,4,3)
 plot_gene_density_telomere(dependency_directory,output_directory)
 
 
+
 %E
-%density of interactions vs variants
-subplot(2,4,4)
-plot_density_telomere(dependency_directory,output_directory)
-
-
-
-%F
 %buffered vs potentiated effect size by telomere distance
-subplot(2,4,5)
+subplot(2,4,4)
 plot_effect_size_telomere(dependency_directory,output_directory)
 
 
@@ -640,6 +634,11 @@ plot_gene_age_interaction(2,dependency_directory,output_directory)
 title('all potentiated')
 
 
+
+%H
+%density of interactions vs variants
+subplot(2,4,8)
+plot_density_telomere_type(dependency_directory,output_directory)
 
 
 
