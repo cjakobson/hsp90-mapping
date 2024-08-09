@@ -60,6 +60,9 @@ subplot(2,8,6)
 plot_1K_effect(3176,'rapamycin','48h',dependency_directory,output_directory)
 
 
+
+
+
 set(gcf,'PaperPositionMode','auto')
 print([output_directory 'figure_1_1'],'-dsvg','-r0')
 print([output_directory 'figure_1_1'],'-djpeg','-r300')
@@ -220,11 +223,17 @@ plot_erg11_reconstruction(1,[1 2],6,dependency_directory,output_directory)
 %F
 %ERG11 ASE
 subplot(2,8,9)
-plot_tag_counts(4972,dependency_directory,output_directory)
+plot_total_counts(4972,dependency_directory,output_directory)
 
 
 subplot(2,8,10)
+plot_tag_counts(4972,dependency_directory,output_directory)
+
+
+subplot(2,8,11)
 plot_allele_ratio(4972,dependency_directory,output_directory)
+
+
 
 
 

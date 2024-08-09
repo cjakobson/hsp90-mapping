@@ -21,8 +21,15 @@ v3=mapping_input.rmAfRad(qtn_idx);
 v4=mapping_input.rmAfNoRad(qtn_idx);
 
 hold on
-scatter(v1./(1-v1),v2./(1-v2),10,'k','filled','MarkerFaceAlpha',0.5)
-scatter(v3./(1-v3),v4./(1-v4),25,'r','filled','MarkerFaceAlpha',0.5)
+
+v5=v1./(1-v1);
+v6=v2./(1-v2);
+
+v7=v3./(1-v3);
+v8=v4./(1-v4);
+
+scatter(v5,v6,10,'k','filled','MarkerFaceAlpha',0.5)
+scatter(v7,v8,25,'r','filled','MarkerFaceAlpha',0.5)
 
 axis square
 set(gca,'XScale','log')
@@ -32,6 +39,8 @@ ylim(xlim)
 plot(xlim,ylim,':r')
 xlabel('RM allele ratio')
 ylabel('RM allele ratio')
+
+sum(abs(v7-v8)>log10(1.5))/length(v7)
 
 
 end

@@ -212,6 +212,9 @@ for j=time_to_use
         text(3,1.7,num2str(p))
         xlim([0 5])
 
+        for k=1:length(to_plot)
+            text(k,0.1,num2str(length(to_plot{k})))
+        end
         
 
     end
