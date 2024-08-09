@@ -1,4 +1,4 @@
-function [] = plot_effect_size_across_mapping(dependency_directory,output_directory)
+function [] = plot_effect_size_across_mapping(plot_offset,dependency_directory,output_directory)
 
 
 set(0,'DefaultLineLineWidth',1)
@@ -28,7 +28,7 @@ to_plot{3}=abs(no_rad_input.deltaZbaseline(no_rad_input.isQtn==1));
 
 to_plot{4}=abs(rad_input.deltaZbaseline(rad_input.isQtn==1));
 
-subplot(2,8,15)
+subplot(2,8,plot_offset+1)
 easy_box(to_plot)
 ylim([-0.1 1])
 temp_labels={'buffered','potentiated','found in no rad','found in rad'};
@@ -55,7 +55,7 @@ to_plot{3}=abs(no_rad_input.deltaZbuffer(no_rad_input.isQtn==1));
 
 to_plot{4}=abs(rad_input.deltaZbuffer(rad_input.isQtn==1));
 
-subplot(2,8,16)
+subplot(2,8,plot_offset+2)
 easy_box(to_plot)
 ylim([-0.1 1])
 temp_labels={'buffered','potentiated','found in no rad','found in rad'};

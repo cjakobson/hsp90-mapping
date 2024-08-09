@@ -72,10 +72,9 @@ figure('units','normalized','outerposition',[0 0 1 1])
 
 
 %F
-%heritability explained
+%cumulative plot for effect size
 subplot(2,4,1)
-plot_heritability_explained(dependency_directory,output_directory)
-
+plot_cumulative_effect_size(dependency_directory,output_directory)
 
 
 %G
@@ -123,33 +122,35 @@ plot_trait_scatter('72h fluconazole_100uM_delta','72h rapamycin_5uM_delta',depen
 
 
 %F
-%n/a
+%heritability explained
+subplot(2,4,6)
+plot_heritability_explained(dependency_directory,output_directory)
+
 
 
 %G
-%effect size -- buffered vs potentiated
-subplot(2,8,11)
-plot_effect_size_interaction(dependency_directory,output_directory)
+%n/a
 
 
 %H
+%effect size -- buffered vs potentiated
+subplot(2,8,13)
+plot_effect_size_interaction(dependency_directory,output_directory)
+
+
+%I
 %effect size -- buffered vs potentiated split by inverted/not
-subplot(2,8,12)
+subplot(2,8,14)
 plot_effect_size_line_crossing(dependency_directory,output_directory)
 
 
 
-%I
+%J
 %effect size histogam -- no rad vs Hsp90-dependent
-subplot(2,4,7)
+subplot(2,4,8)
 plot_effect_size_histogram(dependency_directory,output_directory)
 
 
-
-
-%J
-%Hsp90 vs linear effect size in no rad and rad
-plot_effect_size_across_mapping(dependency_directory,output_directory)
 
 
 
@@ -163,10 +164,16 @@ print([output_directory 'figure_S1_1'],'-djpeg','-r300')
 figure('units','normalized','outerposition',[0 0 1 1])
 
 
+
+
 %K
-%cumulative plot for effect size
-subplot(2,4,2)
-plot_cumulative_effect_size(dependency_directory,output_directory)
+%Hsp90 vs linear effect size in no rad and rad
+plot_effect_size_across_mapping(0,dependency_directory,output_directory)
+
+
+plot_af_across_mapping(2,dependency_directory,output_directory)
+
+
 
 
 %L
@@ -493,17 +500,16 @@ plot_allele_combintations(loci_to_plot,ref_allele,'72h min mal_2%',...
     dependency_directory,output_directory)
 
 
-%B
 subplot(2,2,2)
 plot_allele_combintations(loci_to_plot,ref_allele,'72h min raf_2%',...
     dependency_directory,output_directory)
 
 
 
-%C
+%B
 %n/a
 
-%D
+%C
 %mutational step effect sizes
 loci_to_plot(1)=4835;    %IMA1/MAL1
 loci_to_plot(2)=886;     %MAL3
@@ -522,10 +528,10 @@ condition_to_plot='72h min raf_2%';
 plot_mutational_steps(loci_to_plot,ref_allele,condition_to_plot,...
     dependency_directory,output_directory)
 
-%E
+%D
 %n/a
 
-%F
+%E
 %same for flc/glc
 loci_to_plot(1)=4974;    %ERG11
 loci_to_plot(2)=4292;     %PDR1
@@ -579,8 +585,18 @@ subplot(2,4,3)
 plot_gene_density_telomere(dependency_directory,output_directory)
 
 
-
 %E
+%polymorphism by gene age
+plot_1K_age(8,dependency_directory,output_directory)
+
+
+%F
+%polymorphism in telomere
+plot_1K_telomere(10,dependency_directory,output_directory)
+
+
+
+%G
 %buffered vs potentiated effect size by telomere distance
 subplot(2,4,4)
 plot_effect_size_telomere(dependency_directory,output_directory)

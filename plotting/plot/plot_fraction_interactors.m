@@ -99,6 +99,16 @@ for i=(length(v_sort)-n_to_output+1):length(v_sort)
     end
 end
 text(5800,0.9,[num2str(m) ' interact w Hsp90'])
+
+%fisher p value on this
+tempTable=table([sum(ismember(all_genes(sort_idx((end-n_to_output):end)),hsp90_interactors));...
+    sum(~ismember(all_genes(sort_idx((end-n_to_output):end)),hsp90_interactors))],...
+    [sum(ismember(all_genes(sort_idx(1:(end-n_to_output))),hsp90_interactors));...
+    sum(~ismember(all_genes(1:(end-n_to_output)),hsp90_interactors))],...
+    'VariableNames',{'interactor','other'},'RowNames',{'top100','not'});
+[h,p,stats]=fishertest(tempTable);
+text(5800,0.85,num2str(p))
+
 xlim([length(sort_idx)-n_to_output+1 length(sort_idx)])
 axis square
 set(gca,'YScale','log')
