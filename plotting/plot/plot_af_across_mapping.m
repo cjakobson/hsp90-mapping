@@ -41,7 +41,7 @@ subplot(2,8,plot_offset+1)
 hold on
 easy_box(to_plot)
 %ylim([-0.1 1])
-temp_labels={'buffered','potentiated','found in no rad','found in rad','all segregating'};
+temp_labels={'buffered','potentiated','found in no rad','all segregating'};
 xticks(1:length(temp_labels))
 xticklabels(temp_labels)
 xtickangle(45)
@@ -60,6 +60,7 @@ for i=3:length(to_plot)
     text((i+1)/2,250+25*i,num2str(p))
     plot([2 i],[250+25*i 250+25*i],'-k')
 end
+xlim([0.5 length(to_plot)+0.5])
 
 
 end
