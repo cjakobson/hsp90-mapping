@@ -32,9 +32,9 @@ to_plot{2}=hsp90_input.nMinor(logical(hsp90_qtn_idx.*v_potentiate));
 to_plot{3}=no_rad_input.nMinor(no_rad_input.isQtn==1);
 
 %to_plot{4}=abs(rad_input.deltaZbaseline(rad_input.isQtn==1));
-to_plot{4}=rad_input.nMinor(rad_input.isQtn==1);
+%to_plot{4}=rad_input.nMinor(rad_input.isQtn==1);
 
-to_plot{5}=variant_info.nMinor;
+to_plot{4}=variant_info.nMinor;
 
 
 subplot(2,8,plot_offset+1)
@@ -54,6 +54,11 @@ for i=2:length(to_plot)
     [h p]=ttest2(to_plot{1},to_plot{i});
     text((i+1)/2,350+25*i,num2str(p))
     plot([1 i],[350+25*i 350+25*i],'-k')
+end
+for i=3:length(to_plot)
+    [h p]=ttest2(to_plot{2},to_plot{i});
+    text((i+1)/2,250+25*i,num2str(p))
+    plot([2 i],[250+25*i 250+25*i],'-k')
 end
 
 
