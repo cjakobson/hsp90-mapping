@@ -47,14 +47,14 @@ end
 
 client_table=readtable([dependency_directory 'picardHsp90Interactors.csv']);
 
-to_keep=logical(ismember(client_table.Interactor_A,{'HSP90AA1','HSP90BB1'})+...
-    ismember(client_table.Interactor_B,{'HSP90AA1','HSP90BB1'}));
+to_keep=logical(ismember(client_table.Interactor_A,{'HSP90AA1','HSP90AB1'})+...
+    ismember(client_table.Interactor_B,{'HSP90AA1','HSP90AB1'}));
 
 client_table=client_table(to_keep,:);
 
 %only keep the ones that arent hsp90
 v_clients=unique([client_table.Interactor_A; client_table.Interactor_B]);
-v_clients(ismember(v_clients,{'HSP90AA1','HSP90BB1'}))=[];
+v_clients(ismember(v_clients,{'HSP90AA1','HSP90AB1'}))=[];
 
 
 for i=1:length(gene_sets)
