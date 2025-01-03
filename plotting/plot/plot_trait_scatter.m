@@ -27,9 +27,9 @@ xlim([-3 3])
 ylim(xlim)
 axis square
 [r p]=corr(v1,v2,'rows','complete');
-text(1,-2,num2str(r))
-xlabel('norm. growth')
-ylabel('norm. growth')
+text(2,-2.5,num2str(r))
+xlabel(['norm. growth ' condition_to_plot1])
+ylabel(['norm. growth ' condition_to_plot2])
 
 
 end
