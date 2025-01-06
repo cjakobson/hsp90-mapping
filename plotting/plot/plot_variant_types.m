@@ -46,7 +46,7 @@ xtickangle(45)
 xticklabels(variant_labels)
 ylabel('relative frequency')
 legend({'Hsp90-dep.','all segr.'})
-
+xlim([0.5 length(variant_labels)+0.5])
 
 
 

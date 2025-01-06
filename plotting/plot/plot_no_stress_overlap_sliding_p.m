@@ -50,10 +50,12 @@ for n=1:length(v_p_thresh)
     end
 
     mean_overlap(n)=mean(f_overlap);
+    std_overlap(n)=std(f_overlap);
     
 end
 
 plot(mean_overlap,'k-')
+%errorbar(mean_overlap,std_overlap,'k-')
 xticks(1:length(v_p_thresh))
 xtickangle(45)
 xticklabels(v_p_thresh)
