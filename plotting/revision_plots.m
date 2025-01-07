@@ -118,26 +118,28 @@ figure('units','normalized','outerposition',[0 0 1 1])
 subplot(2,4,1)
 plot_variant_types(dependency_directory,output_directory)
 
-
-subplot(2,8,3)
-plot_effect_size_ase_syn(dependency_directory,output_directory)
-
-
-subplot(2,8,4)
-plot_syn_delta_cai_ase(dependency_directory,output_directory)
+%calculate total contribution by type
 
 subplot(2,8,5)
-plot_syn_delta_nte_ase(dependency_directory,output_directory)
+plot_effect_size_ase_syn(dependency_directory,output_directory)
 
 
 
 subplot(2,4,4)
-plot_syn_pos_in_orf_ase(dependency_directory,output_directory)
-
-
-
-subplot(2,4,5)
 plot_syn_effect_size_ase(dependency_directory,output_directory)
+
+% subplot(2,8,4)
+% plot_syn_delta_cai_ase(dependency_directory,output_directory)
+
+subplot(2,8,9)
+plot_syn_delta_nte_ase(dependency_directory,output_directory)
+
+
+
+% subplot(2,4,3)
+% plot_syn_pos_in_orf_ase(dependency_directory,output_directory)
+
+
 
 
 
