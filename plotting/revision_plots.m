@@ -13,8 +13,8 @@ blue=[43 172 226]./256;
 orange=[248 149 33]./256;
 grey=[128 128 128]./256;
 
-filebase='/Users/cjakobson/';
-%filebase='/Users/christopherjakobson/';
+%filebase='/Users/cjakobson/';
+filebase='/Users/christopherjakobson/';
 
 code_directory=[filebase 'Documents/GitHub/hsp90-mapping/'];
 dependency_directory=[filebase '/Dropbox/JaroszLab/hsp90mapping/hsp90-mapping-dependencies/'];
@@ -89,67 +89,6 @@ print([output_directory 'figure_R2_1'],'-dsvg','-r0')
 print([output_directory 'figure_R2_1'],'-djpeg','-r300')
 
 
-%renormalize H2
-figure('units','normalized','outerposition',[0 0 1 1])
-
-
-subplot(2,3,1)
-plot_heritability_explained(dependency_directory,output_directory)
-
-
-subplot(2,3,2)
-plot_heritability_explained_norm(1,dependency_directory,output_directory)
-
-
-
-set(gcf,'PaperPositionMode','auto')
-print([output_directory 'figure_R3_1'],'-dsvg','-r0')
-print([output_directory 'figure_R3_1'],'-djpeg','-r300')
-
-
-
-
-
-%some basic stats/analysis about synonymous
-
-figure('units','normalized','outerposition',[0 0 1 1])
-
-
-subplot(2,3,1)
-plot_variant_types(dependency_directory,output_directory)
-
-%calculate total contribution by type
-
-subplot(2,6,3)
-plot_effect_size_ase_syn(dependency_directory,output_directory)
-
-
-
-subplot(2,3,3)
-plot_syn_effect_size_ase(dependency_directory,output_directory)
-
-% subplot(2,8,4)
-% plot_syn_delta_cai_ase(dependency_directory,output_directory)
-
-subplot(2,3,4)
-plot_syn_delta_nte_ase(dependency_directory,output_directory)
-
-
-
-% subplot(2,4,3)
-% plot_syn_pos_in_orf_ase(dependency_directory,output_directory)
-
-
-
-
-
-
-set(gcf,'PaperPositionMode','auto')
-print([output_directory 'figure_R4_1'],'-dsvg','-r0')
-print([output_directory 'figure_R4_1'],'-djpeg','-r300')
-
-
-
 
 
 %subset biogrid analysis
@@ -211,9 +150,47 @@ title('genetic interactions -- regulatory')
 
 
 set(gcf,'PaperPositionMode','auto')
-print([output_directory 'figure_R5_1'],'-dsvg','-r0')
-print([output_directory 'figure_R5_1'],'-djpeg','-r300')
+print([output_directory 'figure_R3_1'],'-dsvg','-r0')
+print([output_directory 'figure_R3_1'],'-djpeg','-r300')
 
+
+
+
+%some basic stats/analysis about synonymous
+
+figure('units','normalized','outerposition',[0 0 1 1])
+
+
+subplot(2,3,1)
+plot_variant_types(dependency_directory,output_directory)
+
+%calculate total contribution by type
+
+subplot(2,6,3)
+plot_effect_size_ase_syn(dependency_directory,output_directory)
+
+
+subplot(2,6,4)
+plot_syn_delta_nte_ase(dependency_directory,output_directory)
+
+
+
+subplot(2,3,3)
+plot_syn_effect_size_ase(dependency_directory,output_directory)
+axis square
+
+
+subplot(2,6,7)
+plot_mis_foldx(dependency_directory,output_directory)
+
+%need to include sign -- which allele is ref?
+
+
+
+
+set(gcf,'PaperPositionMode','auto')
+print([output_directory 'figure_R4_1'],'-dsvg','-r0')
+print([output_directory 'figure_R4_1'],'-djpeg','-r300')
 
 
 %various abundance correlations
@@ -237,8 +214,8 @@ title('genetic')
 
 
 set(gcf,'PaperPositionMode','auto')
-print([output_directory 'figure_R6_1'],'-dsvg','-r0')
-print([output_directory 'figure_R6_1'],'-djpeg','-r300')
+print([output_directory 'figure_R5_1'],'-dsvg','-r0')
+print([output_directory 'figure_R5_1'],'-djpeg','-r300')
 
 
 
@@ -260,8 +237,35 @@ end
 
 
 set(gcf,'PaperPositionMode','auto')
+print([output_directory 'figure_R6_1'],'-dsvg','-r0')
+print([output_directory 'figure_R6_1'],'-djpeg','-r300')
+
+
+
+
+
+
+
+%renormalize H2
+figure('units','normalized','outerposition',[0 0 1 1])
+
+
+subplot(2,3,1)
+plot_heritability_explained(dependency_directory,output_directory)
+
+
+subplot(2,3,2)
+plot_heritability_explained_norm(dependency_directory,output_directory)
+
+
+
+set(gcf,'PaperPositionMode','auto')
 print([output_directory 'figure_R7_1'],'-dsvg','-r0')
 print([output_directory 'figure_R7_1'],'-djpeg','-r300')
+
+
+
+
 
 
 

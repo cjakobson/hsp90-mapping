@@ -21,6 +21,16 @@ input_data=input_data(input_data.isQtn==1,:);
 [v_fraction_hsp90,v_type_hsp90]=variant_types(input_data.variantType);
 
 
+%contributions by type
+for i=1:3
+
+    temp_idx=v_type_hsp90==i;
+    v_contribution(i)=sum(input_data.varExp(temp_idx));
+
+end
+
+v_contribution=v_contribution./sum(v_contribution)
+
 background_data=readtable([dependency_directory 'variantInfoStructure.csv']);
 
 [v_fraction_all,v_type_all]=variant_types(background_data.variantType);
