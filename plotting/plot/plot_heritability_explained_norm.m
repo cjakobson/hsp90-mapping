@@ -1,4 +1,4 @@
-function [] = plot_heritability_explained_norm(plot_offset,dependency_directory,output_directory)
+function [] = plot_heritability_explained_norm(dependency_directory,output_directory)
 
 
 set(0,'DefaultLineLineWidth',1)
@@ -192,7 +192,7 @@ for i=4%1:length(exp_time)
 
     v1=temp_mat3(:,2)./v_temp;
     v2=sum(temp_mat3(:,1:2),2)./v_temp;
-    subplot(2,4,plot_offset+m)
+    %subplot(2,3,plot_offset+m)
     m=m+1;
     hold on
     %bar(tempMat2(sortIdx,:),'stacked')

@@ -13,8 +13,8 @@ blue=[43 172 226]./256;
 orange=[248 149 33]./256;
 grey=[128 128 128]./256;
 
-%filebase='/Users/cjakobson/';
-filebase='/Users/christopherjakobson/';
+filebase='/Users/cjakobson/';
+%filebase='/Users/christopherjakobson/';
 
 code_directory=[filebase 'Documents/GitHub/hsp90-mapping/'];
 dependency_directory=[filebase '/Dropbox/JaroszLab/hsp90mapping/hsp90-mapping-dependencies/'];
@@ -34,18 +34,18 @@ addpath([code_directory 'data-prep'])
 figure('units','normalized','outerposition',[0 0 1 1])
 
 %overlap of min glc with other conditions
-subplot(2,4,1)
+subplot(2,3,1)
 plot_no_stress_overlap(dependency_directory,output_directory)
 
 
 %extent of overlap with sliding p threshold
-subplot(2,4,2)
+subplot(2,3,2)
 plot_no_stress_overlap_sliding_p(dependency_directory,output_directory)
 
 
 
 %overlap between Hsp90 QTNs and Hsc82/Hsp82 pQTLs
-subplot(2,4,3)
+subplot(2,3,3)
 plot_pqtl_overlap(dependency_directory,output_directory)
 
 
@@ -73,7 +73,7 @@ for i=1:length(traits_to_plot)
     
     for j=(i+1):length(traits_to_plot)
         
-        subplot(2,4,m)
+        subplot(2,3,m)
         plot_trait_scatter(traits_to_plot{i},traits_to_plot{j},...
             dependency_directory,output_directory)
         m=m+1;
@@ -93,11 +93,11 @@ print([output_directory 'figure_R2_1'],'-djpeg','-r300')
 figure('units','normalized','outerposition',[0 0 1 1])
 
 
-subplot(2,4,1)
+subplot(2,3,1)
 plot_heritability_explained(dependency_directory,output_directory)
 
 
-
+subplot(2,3,2)
 plot_heritability_explained_norm(1,dependency_directory,output_directory)
 
 
@@ -115,23 +115,23 @@ print([output_directory 'figure_R3_1'],'-djpeg','-r300')
 figure('units','normalized','outerposition',[0 0 1 1])
 
 
-subplot(2,4,1)
+subplot(2,3,1)
 plot_variant_types(dependency_directory,output_directory)
 
 %calculate total contribution by type
 
-subplot(2,8,5)
+subplot(2,6,3)
 plot_effect_size_ase_syn(dependency_directory,output_directory)
 
 
 
-subplot(2,4,4)
+subplot(2,3,3)
 plot_syn_effect_size_ase(dependency_directory,output_directory)
 
 % subplot(2,8,4)
 % plot_syn_delta_cai_ase(dependency_directory,output_directory)
 
-subplot(2,8,9)
+subplot(2,3,4)
 plot_syn_delta_nte_ase(dependency_directory,output_directory)
 
 
@@ -219,17 +219,17 @@ print([output_directory 'figure_R5_1'],'-djpeg','-r300')
 %various abundance correlations
 figure('units','normalized','outerposition',[0 0 1 1])
 
-subplot(2,4,1)
+subplot(2,3,1)
 plot_effect_size_abundance(dependency_directory,output_directory)
 
 
 %physical interactors
-subplot(2,4,2)
+subplot(2,3,2)
 plot_interactors_abundance(1,dependency_directory,output_directory)
 title('physical')
 
 
-subplot(2,4,3)
+subplot(2,3,3)
 plot_interactors_abundance(2,dependency_directory,output_directory)
 title('genetic')
 
