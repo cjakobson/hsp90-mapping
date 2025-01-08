@@ -1,4 +1,4 @@
-function [] = plot_syn_delta_nte_ase(dependency_directory,output_directory)
+function [] = plot_syn_delta_nte_ase_hist(dependency_directory,output_directory)
 
 
 set(0,'DefaultLineLineWidth',1)
@@ -20,7 +20,6 @@ v_buffer=abs(input_data.deltaZbuffer)>=abs(input_data.deltaZbaseline);
 %v_delta_delta_z=abs(input_data.deltaZbuffer-input_data.deltaZbaseline);
 %v_delta_cai=abs(input_data.variantDeltaCai);
 v_delta_nte=abs(input_data.refnTE-input_data.altnTE);
-v_pos_in_orf=input_data.variantRelPos;
 
 v_has_ase=logical(input_data.hasAseRad);
 
@@ -33,11 +32,9 @@ v_type=v_type';
 %v_regulatory=v_type==3;
 v_regulatory=v_type==2;
 
-v_low_delta_nte=v_delta_nte<0.2;
 
-to_plot{1}=v_pos_in_orf(logical(v_has_ase.*v_regulatory));
-to_plot{2}=v_pos_in_orf(logical(v_has_tag.*~v_has_ase.*v_regulatory.*v_low_delta_nte));
-to_plot{3}=v_pos_in_orf(logical(v_has_tag.*~v_has_ase.*v_regulatory.*~v_low_delta_nte));
+to_plot{1}=v_delta_nte(logical(v_has_ase.*v_regulatory));
+to_plot{2}=v_delta_nte(logical(v_has_tag.*~v_has_ase.*v_regulatory));
 
 %all other syn
 
@@ -50,25 +47,15 @@ v_nte_all=abs(background_data.refnTE-background_data.altnTE);
 
 
 hold on
-%histogram(to_plot{1},0:0.1:1,'Normalization','probability')
+histogram(to_plot{1},0:0.1:1,'Normalization','probability')
 histogram(to_plot{2},0:0.1:1,'Normalization','probability')
-histogram(to_plot{3},0:0.1:1,'Normalization','probability')
-%easy_box(to_plot)
-ylim([0 0.25])
-xlim([0 1])
-% for i=1:length(to_plot)
-%     text(i,0.4,num2str(length(to_plot{i})))
-% end
-% for i=2:length(to_plot)
-%     [h p]=ttest2(to_plot{1},to_plot{i});
-%     text(i-0.5,0.45,num2str(p))
-% end
-xlabel('position in open reading frame')
-ylabel('relative frequency')
 axis square
-
-legend({'no ASE, lo \DeltanTE','no ASE, hi \DeltanTE'})%,'all segr. syn.'})
+legend({'has ASE','no ASE'})%,'all segr. syn.'})
 title('synonymous variants')
+xlabel('\DeltanTE')
+ylim([0 1])
+ylabel('relative frequency')
+
 
 
 end
