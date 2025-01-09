@@ -89,6 +89,38 @@ text(2e4,-2,num2str(r))
 text(2e4,-2.5,num2str(p))
 
 
+%also against change in growth
+subplot(2,4,plot_offset+5)
+v1=v_hsc82';
+v2=v_rad-v_no_rad;
+scatter(v1,v2,10,'k','filled')
+xlim([1e5 2.5e5])
+ylim([-3 3])
+axis square
+xlabel('Hsc82 abundance')
+ylabel('change in growth upon rad')
+[r p]=corr(v1,v2,'rows','complete');
+text(1e5,-2,num2str(r))
+text(1e5,-2.5,num2str(p))
+
+
+subplot(2,4,plot_offset+6)
+v1=v_hsp82';
+v2=v_rad-v_no_rad;
+scatter(v1,v2,10,'k','filled')
+xlim([2e4 1e5])
+ylim([-3 3])
+axis square
+xlabel('Hsp82 abundance')
+ylabel('change in growth upon rad')
+[r p]=corr(v1,v2,'rows','complete');
+text(2e4,-2,num2str(r))
+text(2e4,-2.5,num2str(p))
+
+
+
+
+
 end
 
 
