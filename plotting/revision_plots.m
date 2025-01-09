@@ -50,9 +50,6 @@ plot_pqtl_overlap(dependency_directory,output_directory)
 
 
 
-
-
-
 set(gcf,'PaperPositionMode','auto')
 print([output_directory 'figure_R1_1'],'-dsvg','-r0')
 print([output_directory 'figure_R1_1'],'-djpeg','-r300')
@@ -275,6 +272,23 @@ plot_gong_clients(dependency_directory,output_directory)
 set(gcf,'PaperPositionMode','auto')
 print([output_directory 'figure_R7_1'],'-dsvg','-r0')
 print([output_directory 'figure_R7_1'],'-djpeg','-r300')
+
+
+
+
+figure('units','normalized','outerposition',[0 0 1 1])
+
+
+%plot Hsc82 and Hsp82 abundance vs growth in glc-/+rad
+plot_hsp90_growth(0,dependency_directory,output_directory)
+
+
+
+
+set(gcf,'PaperPositionMode','auto')
+print([output_directory 'figure_R8_1'],'-dsvg','-r0')
+print([output_directory 'figure_R8_1'],'-djpeg','-r300')
+
 
 
 
