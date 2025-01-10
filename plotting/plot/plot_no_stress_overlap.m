@@ -48,6 +48,7 @@ xlim([0 length(conditions)+1])
 title('all loci')
 axis square
 ylabel('fraction overlapping with min glc')
+ylim([0 1])
 
 
 

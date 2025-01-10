@@ -54,6 +54,7 @@ xlim([0 length(conditions)+1])
 title('all loci')
 axis square
 ylabel('fraction overlapping with Hsp90 pQTLs')
+ylim([0 1])
 
 sum(n_overlap)
 

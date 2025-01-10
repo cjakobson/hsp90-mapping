@@ -62,7 +62,7 @@ xticklabels(v_p_thresh)
 xlabel('p value threshold (-log_{10})')
 ylabel('mean fraction overlapping')
 axis square
-ylim([0 0.2])
+ylim([0 1])
 
 
 
