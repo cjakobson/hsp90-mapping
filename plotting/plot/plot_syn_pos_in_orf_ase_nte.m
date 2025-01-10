@@ -1,5 +1,4 @@
-
-function [] = plot_syn_pos_in_orf_ase(dependency_directory,output_directory)
+function [] = plot_syn_pos_in_orf_ase_nte(dependency_directory,output_directory)
 
 
 set(0,'DefaultLineLineWidth',1)
@@ -37,8 +36,11 @@ v_regulatory=v_type==2;
 v_low_delta_nte=v_delta_nte<0.2;
 
 to_plot{1}=v_pos_in_orf(logical(v_has_ase.*v_regulatory));
-to_plot{2}=v_pos_in_orf(logical(v_has_tag.*~v_has_ase.*v_regulatory.*v_low_delta_nte));
-to_plot{3}=v_pos_in_orf(logical(v_has_tag.*~v_has_ase.*v_regulatory.*~v_low_delta_nte));
+to_plot{2}=v_delta_nte(logical(v_has_ase.*v_regulatory));
+
+to_plot{3}=v_pos_in_orf(logical(v_has_tag.*~v_has_ase.*v_regulatory));%.*v_low_delta_nte));
+to_plot{4}=v_delta_nte(logical(v_has_tag.*~v_has_ase.*v_regulatory));%.*v_low_delta_nte));
+%to_plot{3}=v_pos_in_orf(logical(v_has_tag.*~v_has_ase.*v_regulatory.*~v_low_delta_nte));
 
 %all other syn
 
@@ -51,11 +53,11 @@ v_nte_all=abs(background_data.refnTE-background_data.altnTE);
 
 
 hold on
-%histogram(to_plot{1},0:0.1:1,'Normalization','probability')
-histogram(to_plot{2},0:0.1:1,'Normalization','probability')
-histogram(to_plot{3},0:0.1:1,'Normalization','probability')
-%easy_box(to_plot)
-ylim([0 0.25])
+scatter(to_plot{1},to_plot{2},25,'m','filled',...
+    'MarkerFaceAlpha',0.5)
+scatter(to_plot{3},to_plot{4},25,'g','filled',...
+    'MarkerFaceAlpha',0.5)
+ylim([0 1])
 xlim([0 1])
 % for i=1:length(to_plot)
 %     text(i,0.4,num2str(length(to_plot{i})))
@@ -65,12 +67,13 @@ xlim([0 1])
 %     text(i-0.5,0.45,num2str(p))
 % end
 xlabel('position in open reading frame')
-ylabel('relative frequency')
+ylabel('\DeltanTE')
 axis square
 
-legend({'no ASE, lo \DeltanTE','no ASE, hi \DeltanTE'})%,'all segr. syn.'})
+legend({'has ASE','no ASE'})%,'all segr. syn.'})
 title('synonymous variants')
 
 
 end
+
 

@@ -187,6 +187,9 @@ plot_syn_domain_boundaries(dependency_directory,output_directory)
 subplot(2,3,5)
 plot_syn_pos_in_orf_ase(dependency_directory,output_directory)
 
+subplot(2,3,6)
+plot_syn_pos_in_orf_ase_nte(dependency_directory,output_directory)
+
 %for FoldX -- need to include sign -- which allele is ref?
 
 
