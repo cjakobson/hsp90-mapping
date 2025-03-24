@@ -265,13 +265,13 @@ for i=strain_to_plot%1:length(temp_labels1)
         errorbar((1:5),v1(11:15),v2(11:15),'-k','Linewidth',2)
         
         %logistic fits
-        f_opt=fitoptions('Method','NonlinearLeastSquares',...
-               'Lower',[0,0,0,0],...
-               'Upper',[1,Inf,Inf,1],...
-               'StartPoint',[0 1 1 1]);
-        ft=fittype('(a-d)/(1+(x/c)^b)+d','options',f_opt);
-        f1=fit((1:5)',v1(11:15)',ft)
-        f2=fit((1:5)',v1(1:5)',ft)
+        % f_opt=fitoptions('Method','NonlinearLeastSquares',...
+        %        'Lower',[0,0,0,0],...
+        %        'Upper',[1,Inf,Inf,1],...
+        %        'StartPoint',[0 1 1 1]);
+        % ft=fittype('(a-d)/(1+(x/c)^b)+d','options',f_opt);
+        % f1=fit((1:5)',v1(11:15)',ft)
+        % f2=fit((1:5)',v1(1:5)',ft)
         
         %p vals for rad vs not
         for ii=1:5

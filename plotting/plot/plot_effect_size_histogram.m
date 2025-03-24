@@ -35,6 +35,7 @@ xlim([0 1])
 legend({'no rad','Hsp90-dep.'})
 ylabel('freq.')
 xlabel('effect size')
+axis square
 
 
 end

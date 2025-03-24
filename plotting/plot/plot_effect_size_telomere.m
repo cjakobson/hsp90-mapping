@@ -53,7 +53,7 @@ end
 
 
 easy_box(to_plot)
-ylim([1e-2 1])
+
 set(gca,'YScale','log')
 axis square
 
@@ -66,7 +66,7 @@ for i=1:length(temp_labels)
     text(i,0.02,num2str(temp_labels(i)))
 end
 ylabel('|\Delta\DeltaZ|')
-
+ylim([1e-2 1])
 
 
 end

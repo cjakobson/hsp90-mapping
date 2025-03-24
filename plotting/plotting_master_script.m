@@ -129,27 +129,28 @@ plot_heritability_explained(dependency_directory,output_directory)
 
 
 %G
-%n/a
+%fraction of variance explained
+subplot(2,4,7)
+plot_heritability_explained_norm(dependency_directory,output_directory)
+
+
+
 
 
 %H
-%effect size -- buffered vs potentiated
-subplot(2,8,13)
-plot_effect_size_interaction(dependency_directory,output_directory)
+%n/a
 
 
 %I
-%effect size -- buffered vs potentiated split by inverted/not
-subplot(2,8,14)
-plot_effect_size_line_crossing(dependency_directory,output_directory)
-
+%effect size -- buffered vs potentiated
+subplot(2,8,15)
+plot_effect_size_interaction(dependency_directory,output_directory)
 
 
 %J
-%effect size histogam -- no rad vs Hsp90-dependent
-subplot(2,4,8)
-plot_effect_size_histogram(dependency_directory,output_directory)
-
+%effect size -- buffered vs potentiated split by inverted/not
+subplot(2,8,16)
+plot_effect_size_line_crossing(dependency_directory,output_directory)
 
 
 
@@ -165,20 +166,29 @@ figure('units','normalized','outerposition',[0 0 1 1])
 
 
 
-
 %K
-%Hsp90 vs linear effect size in no rad and rad
-plot_effect_size_across_mapping(0,dependency_directory,output_directory)
-
-
-plot_af_across_mapping(2,dependency_directory,output_directory)
-
+%effect size histogam -- no rad vs Hsp90-dependent
+subplot(2,4,1)
+plot_effect_size_histogram(dependency_directory,output_directory)
 
 
 
 %L
+%Hsp90 vs linear effect size in no rad and rad
+plot_effect_size_across_mapping(2,dependency_directory,output_directory)
+
+
+
+%M
+%prevalence in wild strains
+plot_af_across_mapping(4,dependency_directory,output_directory)
+
+
+
+
+%N
 %effect size by variant type
-subplot(2,4,3)
+subplot(2,4,4)
 plot_effect_size_type(dependency_directory,output_directory)
 
 
@@ -369,8 +379,25 @@ plot_effect_size_ase(dependency_directory,output_directory)
 
 
 %E
+%synonymous analysis
+
+subplot(2,8,9)
+plot_effect_size_ase_syn(dependency_directory,output_directory)
+
+
+subplot(2,8,10)
+plot_syn_delta_nte_ase(dependency_directory,output_directory)
+
+
+subplot(2,8,11)
+plot_syn_domain_boundaries(dependency_directory,output_directory)
+
+
+
+
+%F
 %effect size of protein-coding variants by interaction type and -/+ASE
-subplot(2,4,4)
+subplot(2,4,7)
 plot_coding_effect_size_ase(dependency_directory,output_directory)
 
 
@@ -393,25 +420,39 @@ figure('units','normalized','outerposition',[0 0 1 1])
 %chaperone and cochaperone enrichments
 subplot(2,4,1)
 plot_chaperone_enrichments(0,1,dependency_directory,output_directory)
+axis square
 
-
-%C and C inset -- zoom in
-%fraction of modified loci interacting
-plot_fraction_interactors(1,0,1,dependency_directory,output_directory)
-
-
+%C
+subplot(2,4,2)
+plot_chaperone_enrichments_type(1,1,3,dependency_directory,output_directory)
+title('physical interactions -- regulatory')
 
 %D
+subplot(2,4,3)
+plot_chaperone_enrichments_type(2,1,3,dependency_directory,output_directory)
+title('genetic interactions -- regulatory')
+
+
+
+
+
+%E and E inset -- zoom in
+%fraction of modified loci interacting
+plot_fraction_interactors(3,0,1,dependency_directory,output_directory)
+
+
+
+%F
 %scatter plot fraction enriched/enrichment pVal
-subplot(2,4,4)
+subplot(2,4,6)
 plot_enrichment_scatter(0,1,dependency_directory,output_directory)
 
 
 
-%E
+%G
 %kinase and TF enrichments
 %from kinomeAnalysis.m
-subplot(2,2,3)
+subplot(2,2,4)
 plot_kinase_tf_enrichments(dependency_directory,output_directory)
 
 
@@ -598,7 +639,7 @@ plot_1K_telomere(10,dependency_directory,output_directory)
 
 %G
 %buffered vs potentiated effect size by telomere distance
-subplot(2,4,4)
+subplot(2,4,7)
 plot_effect_size_telomere(dependency_directory,output_directory)
 
 
@@ -749,14 +790,20 @@ title('tebuconazole')
 
 
 %B
-%YJM975 crispri in glucose (no drug)
+%ERG11 levels in KD
 subplot(2,4,2)
+plot_erg11_knockdown(dependency_directory,output_directory)
+
+
+%C
+%YJM975 crispri in glucose (no drug)
+subplot(2,4,3)
 plot_erg11_crispri_norm_glc(1,1,dependency_directory,output_directory)
 
 
 %C
 %norm RM11 in flc
-subplot(2,4,3)
+subplot(2,4,4)
 plot_erg11_crispri_norm(2,1,dependency_directory,output_directory)
 
 
@@ -765,7 +812,7 @@ plot_erg11_crispri_norm(2,1,dependency_directory,output_directory)
 
 
 %E
-subplot(2,8,7)
+subplot(2,8,9)
 plot_haplo_all(dependency_directory,output_directory)
 
 

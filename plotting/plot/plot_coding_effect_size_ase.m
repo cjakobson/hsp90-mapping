@@ -49,6 +49,8 @@ ylabel('\Delta\DeltaZ')
 xticks(1:length(to_plot))
 xtickangle(45)
 xticklabels({'buff. has ASE','buff. no ASE','pot. has ASE','pot. no ASE'})
+axis square
+
 
 
 end

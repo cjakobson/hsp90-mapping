@@ -67,7 +67,7 @@ set(gca,'YScale','log')
 ylim([0.5 4])
 plot(xlim,[1 1],':k')
 ylabel('rel. enrichment')
-axis square
+%axis square
 xlim([0 Inf])
 
 end
