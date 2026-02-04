@@ -55,10 +55,6 @@ print([output_directory 'figure_R1_1'],'-dsvg','-r0')
 print([output_directory 'figure_R1_1'],'-djpeg','-r300')
 
 
-rbhawefcw
-
-
-
 %Figure R2
 figure('units','normalized','outerposition',[0 0 1 1])
 
@@ -227,9 +223,35 @@ print([output_directory 'figure_R5_1'],'-djpeg','-r300')
 
 
 %correlate various hub expression with Hsc82/Hsp82 amongst F6 haploids
-hubs_to_correlate={'STI1','YDJ1','HEK2','ACT1','BFR1','DHH1','SSA1','SSB1'};
-systematic_to_correlate={'YOR027W','YNL064C','YBL032W','YFL039C',...
-    'YOR198C','YDL160C','YAL005C','YDL229W'};
+hubs_to_correlate={'Sti1','Ydj1','Cdc37','Ssa1',...
+    'Ssa2','Ssa3','Ssa4','',...
+    'Ssb1','Ssb2','Sse1','Sse2'};
+systematic_to_correlate={'YOR027W','YNL064C','YDR168W','YAL005C'...
+    'YLL024C','YBL075C','YER103W','',...
+    'YDL229W','YNL209W','YPL106C','YBR169C'};
+
+figure('units','normalized','outerposition',[0 0 1 1])
+
+for i=1:length(hubs_to_correlate)
+    
+    subplot(3,4,i)
+    plot_hub_correlation(hubs_to_correlate{i},systematic_to_correlate{i},...
+        dependency_directory,output_directory)
+    
+end
+
+
+set(gcf,'PaperPositionMode','auto')
+print([output_directory 'figure_R6_1'],'-dsvg','-r0')
+print([output_directory 'figure_R6_1'],'-djpeg','-r300')
+
+
+
+
+hubs_to_correlate={'Dhh1','Ccr4','Nab2','Act1',...
+    'Puf3','Sgs1','Hrq1','Mob2'};
+systematic_to_correlate={'YDL160C','YAL021C','YGL122C','YFL039C',...
+    'YLL013C','YMR190C','YDR291W','YFL034C-B'};
 
 figure('units','normalized','outerposition',[0 0 1 1])
 
@@ -242,10 +264,19 @@ for i=1:length(hubs_to_correlate)
 end
 
 
-
 set(gcf,'PaperPositionMode','auto')
-print([output_directory 'figure_R6_1'],'-dsvg','-r0')
-print([output_directory 'figure_R6_1'],'-djpeg','-r300')
+print([output_directory 'figure_R6_2'],'-dsvg','-r0')
+print([output_directory 'figure_R6_2'],'-djpeg','-r300')
+
+
+
+
+ntsbradv
+
+
+
+%other hits
+
 
 
 
